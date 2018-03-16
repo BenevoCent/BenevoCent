@@ -10,9 +10,10 @@ import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
 
 import Drawer from "material-ui/Drawer";
-
+import { List, ListItem } from "material-ui/List";
 import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
+import Divider from "material-ui/Divider";
 
 function PrivateRoute({ component: Component, authed, ...rest }) {
   return (
@@ -109,26 +110,71 @@ export default class App extends Component {
     return this.state.loading === true ? (
       <h1>Loading</h1>
     ) : (
-      <div>
-        <Drawer
-          docked={false}
-          width={275}
-          open={this.state.open}
-          onRequestChange={open => this.setState({ open })}
-        >
-          <MenuItem onClick={this.handleClose}>Gardens</MenuItem>
-          <MenuItem onClick={this.handleClose}>Seedlings</MenuItem>
-          <MenuItem onClick={this.handleClose}>Transactions</MenuItem>
-          <MenuItem onClick={this.handleClose}>Discover</MenuItem>
-          <MenuItem onClick={this.handleClose}>Oranizations/Non-Profits</MenuItem>
-          <MenuItem onClick={this.handleClose}>Causes</MenuItem>
-          <MenuItem onClick={this.handleClose}>Seedlings</MenuItem>
-          <MenuItem onClick={this.handleClose}>Account</MenuItem>
-          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-          <MenuItem onClick={this.handleClose}>About/Credits</MenuItem>
-        </Drawer>
+      <HashRouter>
+        <div>
+          <Drawer
+            docked={false}
+            width={275}
+            open={this.state.open}
+            onRequestChange={open => this.setState({ open })}
+          >
+            <List>
+              <Link to="/">
+                <ListItem primaryText="Home" onClick={this.handleClose} />
+              </Link>
+              <Link to="/account">
+                <ListItem primaryText="Account" onClick={this.handleClose} />
+              </Link>
+              <Link to="/transactions">
+                <ListItem
+                  primaryText="Transactions"
+                  onClick={this.handleClose}
+                />
+              </Link>
+              <Link to="/gardens">
+                <ListItem primaryText="Gardens" onClick={this.handleClose} />
+              </Link>
+              <Link to="/seedlings">
+                <ListItem primaryText="Seedlings" onClick={this.handleClose} />
+              </Link>
 
-        <HashRouter>
+              <ListItem
+                primaryText="Discover"
+                initiallyOpen={true}
+                primaryTogglesNestedList={true}
+                nestedItems={[
+                  <Link to="/discover/orgs">
+                    <ListItem
+                      primaryText="Organizations / Non-Profits"
+                      onClick={this.handleClose}
+                      style={{marginLeft: "18px"}}
+                    />
+                  </Link>,
+                  <Link to="/discover/causes">
+                    <ListItem 
+                      primaryText="Causes" 
+                      onClick={this.handleClose} 
+                      style={{marginLeft: "18px"}}
+                    />
+                  </Link>
+                ]}
+              />
+              <Divider />
+
+              <Link to="/logout">
+                <ListItem primaryText="Logout" onClick={this.handleClose} />
+              </Link>
+
+              <Divider />
+
+              <Link to="/about">
+                <ListItem
+                  primaryText="About / Credits"
+                  onClick={this.handleClose}
+                />
+              </Link>
+            </List>
+          </Drawer>
           <div>
             <AppBar
               title="My App"
@@ -165,8 +211,8 @@ export default class App extends Component {
               </div>
             </div>
           </div>
-        </HashRouter>
-      </div>
+        </div>
+      </HashRouter>
     );
   }
 }
