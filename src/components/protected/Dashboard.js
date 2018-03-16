@@ -11,13 +11,8 @@ function onGoogleLoginReload() {
       .where('email', '==', user.email)
       .get()
       .then(snapshot => {
-        console.log('snapshot: ', snapshot);
         if (snapshot.docs.length === 0) {
           saveUser(user);
-        } else {
-          snapshot.forEach(doc => {
-            console.log('Document data:', doc.data());
-          })
         }
       })
     })
