@@ -110,10 +110,9 @@ export default class App extends Component {
       <h1>Loading</h1>
     ) : (
       <div>
-        <RaisedButton label="Open Drawer" onClick={this.handleToggle} />
         <Drawer
           docked={false}
-          width={200}
+          width={275}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
         >
@@ -133,6 +132,7 @@ export default class App extends Component {
           <div>
             <AppBar
               title="My App"
+              onLeftIconButtonTouchTap={this.handleToggle}
               iconElementRight={topbarButtons}
               iconStyleRight={{
                 display: "flex",
