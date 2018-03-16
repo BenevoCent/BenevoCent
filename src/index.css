@@ -3,3 +3,26 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.slider-slide {
+  left: 7.5vw;
+}
+
+.slider-slide > div {
+  width: 100vw;
+  height: 100vw;
+  /* border: black;
+  border-style: solid; */
+}
+
+#garden-summary {
+  display: flex ;
+  justify-content: center ;
+  align-items: center;
+  flex-direction: column;
+}
+
+#garden-summary img {
+  /* width: 85vw; */
+  height: 50vw;
+}

@@ -11,8 +11,8 @@ import FlatButton from "material-ui/FlatButton";
 
 import Drawer from "material-ui/Drawer";
 import { List, ListItem } from "material-ui/List";
-import MenuItem from "material-ui/MenuItem";
-import RaisedButton from "material-ui/RaisedButton";
+// import MenuItem from "material-ui/MenuItem";
+// import RaisedButton from "material-ui/RaisedButton";
 import Divider from "material-ui/Divider";
 
 function PrivateRoute({ component: Component, authed, ...rest }) {
@@ -143,14 +143,14 @@ export default class App extends Component {
                 initiallyOpen={true}
                 primaryTogglesNestedList={true}
                 nestedItems={[
-                  <Link to="/discover/orgs">
+                  <Link key={"orgs"} to="/discover/orgs">
                     <ListItem
                       primaryText="Organizations / Non-Profits"
                       onClick={this.handleClose}
                       style={{marginLeft: "18px"}}
                     />
                   </Link>,
-                  <Link to="/discover/causes">
+                  <Link key={"causes"} to="/discover/causes">
                     <ListItem 
                       primaryText="Causes" 
                       onClick={this.handleClose} 
