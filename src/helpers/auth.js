@@ -14,6 +14,11 @@ export function login(email, pw) {
   return firebaseAuth().signInWithEmailAndPassword(email, pw);
 }
 
+export function googleLogin() {
+  const provider = new firebaseAuth.GoogleAuthProvider();
+  return firebaseAuth().signInWithRedirect(provider);
+}
+
 export function resetPassword(email) {
   return firebaseAuth().sendPasswordResetEmail(email);
 }
