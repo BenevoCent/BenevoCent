@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
-import { Route, HashRouter, Link, Redirect, Switch } from 'react-router-dom';
-import Login from './Login';
-import Register from './Register';
-import Home from './Home';
-import Dashboard from './protected/Dashboard';
-import { logout } from '../helpers/auth';
-import { firebaseAuth } from '../config/constants';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+import React, { Component } from "react";
+import { Route, HashRouter, Link, Redirect, Switch } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import Home from "./Home";
+import Dashboard from "./protected/Dashboard";
+import { logout } from "../helpers/auth";
+import { firebaseAuth } from "../config/constants";
+import AppBar from "material-ui/AppBar";
+import FlatButton from "material-ui/FlatButton";
+
+import Drawer from "material-ui/Drawer";
+
+import MenuItem from "material-ui/MenuItem";
+import RaisedButton from "material-ui/RaisedButton";
 
 function PrivateRoute({ component: Component, authed, ...rest }) {
   return (
@@ -18,9 +23,10 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
           <Component {...props} />
         ) : (
           <Redirect
-            to={{ pathname: '/login', state: { from: props.location } }}
+            to={{ pathname: "/login", state: { from: props.location } }}
           />
-        )}
+        )
+      }
     />
   );
 }
@@ -34,7 +40,8 @@ function PublicRoute({ component: Component, authed, ...rest }) {
           <Component {...props} />
         ) : (
           <Redirect to="/dashboard" />
-        )}
+        )
+      }
     />
   );
 }
@@ -42,8 +49,14 @@ function PublicRoute({ component: Component, authed, ...rest }) {
 export default class App extends Component {
   state = {
     authed: false,
-    loading: true
+    loading: true,
+    open: false
   };
+
+  handleToggle = () => this.setState({ open: !this.state.open });
+
+  handleClose = () => this.setState({ open: false });
+
   componentDidMount() {
     this.removeListener = firebaseAuth().onAuthStateChanged(user => {
       if (user) {
@@ -69,15 +82,15 @@ export default class App extends Component {
         onClick={() => {
           logout();
         }}
-        style={{ color: '#fff' }}
+        style={{ color: "#fff" }}
       />
     ) : (
       <span>
         <Link to="/login">
-          <FlatButton label="Login" style={{ color: '#fff' }} />
+          <FlatButton label="Login" style={{ color: "#fff" }} />
         </Link>
         <Link to="/register">
-          <FlatButton label="Register" style={{ color: '#fff' }} />
+          <FlatButton label="Register" style={{ color: "#fff" }} />
         </Link>
       </span>
     );
@@ -85,10 +98,10 @@ export default class App extends Component {
     const topbarButtons = (
       <div>
         <Link to="/">
-          <FlatButton label="Home" style={{ color: '#fff' }} />
+          <FlatButton label="Home" style={{ color: "#fff" }} />
         </Link>
         <Link to="/dashboard">
-          <FlatButton label="dashboard" style={{ color: '#fff' }} />
+          <FlatButton label="dashboard" style={{ color: "#fff" }} />
         </Link>
         {authButtons}
       </div>
@@ -96,42 +109,64 @@ export default class App extends Component {
     return this.state.loading === true ? (
       <h1>Loading</h1>
     ) : (
-      <HashRouter>
-        <div>
-          <AppBar
-            title="My App"
-            iconElementRight={topbarButtons}
-            iconStyleRight={{
-              display: 'flex',
-              alignItems: 'center',
-              marginTop: '0'
-            }}
-          />
-          <div className="container d-flex justify-content-center mt-3">
-            <div className="row">
-              <Switch>
-                <Route path="/" exact component={Home} />
-                <PublicRoute
-                  authed={this.state.authed}
-                  path="/login"
-                  component={Login}
-                />
-                <PublicRoute
-                  authed={this.state.authed}
-                  path="/register"
-                  component={Register}
-                />
-                <PrivateRoute
-                  authed={this.state.authed}
-                  path="/dashboard"
-                  component={Dashboard}
-                />
-                <Route render={() => <h3>No Match</h3>} />
-              </Switch>
+      <div>
+        <RaisedButton label="Open Drawer" onClick={this.handleToggle} />
+        <Drawer
+          docked={false}
+          width={200}
+          open={this.state.open}
+          onRequestChange={open => this.setState({ open })}
+        >
+          <MenuItem onClick={this.handleClose}>Gardens</MenuItem>
+          <MenuItem onClick={this.handleClose}>Seedlings</MenuItem>
+          <MenuItem onClick={this.handleClose}>Transactions</MenuItem>
+          <MenuItem onClick={this.handleClose}>Discover</MenuItem>
+          <MenuItem onClick={this.handleClose}>Oranizations/Non-Profits</MenuItem>
+          <MenuItem onClick={this.handleClose}>Causes</MenuItem>
+          <MenuItem onClick={this.handleClose}>Seedlings</MenuItem>
+          <MenuItem onClick={this.handleClose}>Account</MenuItem>
+          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+          <MenuItem onClick={this.handleClose}>About/Credits</MenuItem>
+        </Drawer>
+
+        <HashRouter>
+          <div>
+            <AppBar
+              title="My App"
+              iconElementRight={topbarButtons}
+              iconStyleRight={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "0"
+              }}
+            />
+
+            <div className="container d-flex justify-content-center mt-3">
+              <div className="row">
+                <Switch>
+                  <Route path="/" exact component={Home} />
+                  <PublicRoute
+                    authed={this.state.authed}
+                    path="/login"
+                    component={Login}
+                  />
+                  <PublicRoute
+                    authed={this.state.authed}
+                    path="/register"
+                    component={Register}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/dashboard"
+                    component={Dashboard}
+                  />
+                  <Route render={() => <h3>No Match</h3>} />
+                </Switch>
+              </div>
             </div>
           </div>
-        </div>
-      </HashRouter>
+        </HashRouter>
+      </div>
     );
   }
 }
