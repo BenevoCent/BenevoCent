@@ -14,6 +14,8 @@ import { List, ListItem } from "material-ui/List";
 // import MenuItem from "material-ui/MenuItem";
 // import RaisedButton from "material-ui/RaisedButton";
 import Divider from "material-ui/Divider";
+import { Tabs, Tab } from "material-ui/Tabs";
+import SwipeableViews from "react-swipeable-views";
 
 function PrivateRoute({ component: Component, authed, ...rest }) {
   return (
@@ -51,7 +53,14 @@ export default class App extends Component {
   state = {
     authed: false,
     loading: true,
-    open: false
+    open: false,
+    tabIndex: 1
+  };
+
+  handleTabChange = value => {
+    this.setState({
+      tabIndex: value
+    });
   };
 
   handleToggle = () => this.setState({ open: !this.state.open });
@@ -96,17 +105,41 @@ export default class App extends Component {
       </span>
     );
 
-    const topbarButtons = (
-      <div>
-        <Link to="/">
-          <FlatButton label="Home" style={{ color: "#fff" }} />
-        </Link>
-        <Link to="/dashboard">
-          <FlatButton label="dashboard" style={{ color: "#fff" }} />
-        </Link>
-        {authButtons}
-      </div>
-    );
+    // const tabs = (
+    //   <div>
+    //     <Tabs onChange={this.handleTabChange} value={this.state.tabIndex}>
+    //       <Tab label="Transactions" value={0} />
+    //       <Tab label="Present" value={1} />
+    //       <Tab label="Discover" value={2} />
+    //     </Tabs>
+    //       <SwipeableViews
+    //         index={this.state.tabIndex}
+    //         onChangeIndex={this.handleChange}
+    //       >
+    //       <div>
+    //         <h2 style={{ fontSize: 24, paddingTop: 16, marginBottom: 12, fontWeight: 400 }}>Transactions</h2>
+    //         Swipe to see the next slide.<br />
+    //       </div>
+    //       <div style={{padding: 10}}>
+    //         Present
+    //         <Home/>
+    //       </div>
+    //       <div style={{padding: 10}}>Discover</div>
+    //     </SwipeableViews>
+    //   </div>
+    // )
+
+    // const topbarButtons = (
+    //   <div>
+    //     <Link to="/">
+    //       <FlatButton label="Home" style={{ color: "#fff" }} />
+    //     </Link>
+    //     <Link to="/dashboard">
+    //       <FlatButton label="dashboard" style={{ color: "#fff" }} />
+    //     </Link>
+    //     {authButtons}
+    //   </div>
+    // );
     return this.state.loading === true ? (
       <h1>Loading</h1>
     ) : (
@@ -147,14 +180,14 @@ export default class App extends Component {
                     <ListItem
                       primaryText="Organizations / Non-Profits"
                       onClick={this.handleClose}
-                      style={{marginLeft: "18px"}}
+                      style={{ marginLeft: "18px" }}
                     />
                   </Link>,
                   <Link key={"causes"} to="/discover/causes">
-                    <ListItem 
-                      primaryText="Causes" 
-                      onClick={this.handleClose} 
-                      style={{marginLeft: "18px"}}
+                    <ListItem
+                      primaryText="Causes"
+                      onClick={this.handleClose}
+                      style={{ marginLeft: "18px" }}
                     />
                   </Link>
                 ]}
@@ -177,15 +210,45 @@ export default class App extends Component {
           </Drawer>
           <div>
             <AppBar
-              title="My App"
+              title="BenevoCent"
               onLeftIconButtonTouchTap={this.handleToggle}
-              iconElementRight={topbarButtons}
+              // iconElementRight={topbarButtons}
+              iconElementRight={authButtons}
+              // children={tabs}
               iconStyleRight={{
                 display: "flex",
                 alignItems: "center",
                 marginTop: "0"
               }}
             />
+            <Tabs onChange={this.handleTabChange} value={this.state.tabIndex}>
+              <Tab label="Transactions" value={0} />
+              <Tab label="Present" value={1} />
+              <Tab label="Discover" value={2} />
+            </Tabs>
+            <SwipeableViews
+              index={this.state.tabIndex}
+              onChangeIndex={this.handleChange}
+            >
+              <div>
+                <h2
+                  style={{
+                    fontSize: 24,
+                    paddingTop: 16,
+                    marginBottom: 12,
+                    fontWeight: 400
+                  }}
+                >
+                  Transactions
+                </h2>
+                Swipe to see the next slide.<br />
+              </div>
+              <div style={{ padding: 10 }}>
+                Present
+                <Home />
+              </div>
+              <div style={{ padding: 10 }}>Discover</div>
+            </SwipeableViews>
 
             <div className="container d-flex justify-content-center mt-3">
               <div className="row">
