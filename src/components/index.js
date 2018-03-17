@@ -17,6 +17,8 @@ import Divider from "material-ui/Divider";
 import { Tabs, Tab } from "material-ui/Tabs";
 import SwipeableViews from "react-swipeable-views";
 
+import GardenSummary from './gardenSummary'
+
 function PrivateRoute({ component: Component, authed, ...rest }) {
   return (
     <Route
@@ -245,7 +247,7 @@ export default class App extends Component {
               </div>
               <div style={{ padding: 10 }}>
                 Present
-                <Home />
+                <GardenSummary />
               </div>
               <div style={{ padding: 10 }}>Discover</div>
             </SwipeableViews>
