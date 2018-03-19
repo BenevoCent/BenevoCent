@@ -17,15 +17,18 @@ import Divider from "material-ui/Divider";
 import { Tabs, Tab } from "material-ui/Tabs";
 import SwipeableViews from "react-swipeable-views";
 
-import GardenSummary from './gardenSummary'
+import Account from "./Account";
+import GardenSummary from "./gardenSummary";
+import Transactions from "./Transactions";
 
-function PrivateRoute({ component: Component, authed, ...rest }) {
+function PrivateRoute({ component: Component, authed, user, ...rest}) {
+  // console.log('index.js line 25', user)
   return (
     <Route
       {...rest}
       render={props =>
         authed === true ? (
-          <Component {...props} />
+          <Component {...props} user={user}/>
         ) : (
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}
@@ -56,7 +59,8 @@ export default class App extends Component {
     authed: false,
     loading: true,
     open: false,
-    tabIndex: 1
+    tabIndex: 1,
+    user: null,
   };
 
   handleTabChange = value => {
@@ -74,12 +78,14 @@ export default class App extends Component {
       if (user) {
         this.setState({
           authed: true,
-          loading: false
+          loading: false,
+          user: user,
         });
       } else {
         this.setState({
           authed: false,
-          loading: false
+          loading: false,
+          user: null,
         });
       }
     });
@@ -223,34 +229,36 @@ export default class App extends Component {
                 marginTop: "0"
               }}
             />
-            <Tabs onChange={this.handleTabChange} value={this.state.tabIndex}>
-              <Tab label="Transactions" value={0} />
-              <Tab label="Present" value={1} />
-              <Tab label="Discover" value={2} />
-            </Tabs>
-            <SwipeableViews
-              index={this.state.tabIndex}
-              onChangeIndex={this.handleChange}
-            >
-              <div>
-                <h2
-                  style={{
-                    fontSize: 24,
-                    paddingTop: 16,
-                    marginBottom: 12,
-                    fontWeight: 400
-                  }}
-                >
-                  Transactions
-                </h2>
-                Swipe to see the next slide.<br />
-              </div>
-              <div style={{ padding: 10 }}>
-                Present
-                <GardenSummary />
-              </div>
-              <div style={{ padding: 10 }}>Discover</div>
-            </SwipeableViews>
+            {
+              // <Tabs onChange={this.handleTabChange} value={this.state.tabIndex}>
+              //   <Tab label="Transactions" value={0} />
+              //   <Tab label="Present" value={1} />
+              //   <Tab label="Discover" value={2} />
+              // </Tabs>
+              // <SwipeableViews
+              //   index={this.state.tabIndex}
+              //   onChangeIndex={this.handleChange}
+              // >
+              //   <div>
+              //     <h2
+              //       style={{
+              //         fontSize: 24,
+              //         paddingTop: 16,
+              //         marginBottom: 12,
+              //         fontWeight: 400
+              //       }}
+              //     >
+              //       Transactions
+              //     </h2>
+              //     Swipe to see the next slide.<br />
+              //   </div>
+              //   <div style={{ padding: 10 }}>
+              //     Present
+              //     <GardenSummary />
+              //   </div>
+              //   <div style={{ padding: 10 }}>Discover</div>
+              // </SwipeableViews>
+            }
 
             <div className="container d-flex justify-content-center mt-3">
               <div className="row">
@@ -270,6 +278,19 @@ export default class App extends Component {
                     authed={this.state.authed}
                     path="/dashboard"
                     component={Dashboard}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/account"
+                    component={Account}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/transactions"
+                    component={Transactions}
+                    user={this.state.user}
                   />
                   <Route render={() => <h3>No Match</h3>} />
                 </Switch>
