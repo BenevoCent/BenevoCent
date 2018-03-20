@@ -90,7 +90,7 @@ export default class App extends Component {
       </span>
     );
 
-    
+
     return this.state.loading === true ? (
       <div id="loading-container">
         <CircularProgress size={80} thickness={5} />
@@ -100,8 +100,8 @@ export default class App extends Component {
         <div>
           <AppDrawer open={this.state.open} handleClose={this.handleClose} handleToggle={this.handleToggle} />
           <div>
-            <AppBar 
-              title="BenevoCent"
+            <AppBar
+              title={<img src="/Benevocent_all_grass_bigC.png" style={{height: "55px" }} alt="logo"/>}
               onLeftIconButtonTouchTap={this.handleToggle}
               // iconElementRight={topbarButtons}
               iconElementRight={authButtons}
