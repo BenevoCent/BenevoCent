@@ -63,7 +63,7 @@ export default class Login extends Component {
             />
             <span className="sr-only">Error:</span>
             &nbsp;{this.state.loginMessage}{' '}
-            <a href="#" onClick={this.resetPassword} className="alert-link">
+            <a href="/" onClick={this.resetPassword} className="alert-link">
               Forgot Password?
             </a>
           </div>

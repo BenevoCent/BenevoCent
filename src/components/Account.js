@@ -4,7 +4,7 @@ import MenuItem from "material-ui/MenuItem";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
-import { db, firebaseAuth } from "../config/constants";
+import { db } from "../config/constants";
 
 export default class Account extends Component {
   constructor(props) {
@@ -41,8 +41,7 @@ export default class Account extends Component {
   
   getAccounts() {
     var userAccounts = [];
-    var accounts = db.collection("accounts");
-    var query = accounts
+    db.collection("accounts")
       .where("userUid", "==", this.props.user.uid)
       .get()
       .then(snapshot => {

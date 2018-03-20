@@ -18,11 +18,11 @@ function onGoogleLoginReload() {
     })
     .catch(error => {
       const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorMessage = error.message;
       // The email of the user's account used.
-      const email = error.email;
+      // const email = error.email;
       // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
+      // var credential = error.credential;
       if (errorCode === 'auth/account-exists-with-different-credential') {
         alert('You have already signed up with a different auth provider for that email.');
         // If you are using multiple auth providers on your app you should handle linking

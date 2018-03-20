@@ -14,11 +14,11 @@ import { List, ListItem } from "material-ui/List";
 // import MenuItem from "material-ui/MenuItem";
 // import RaisedButton from "material-ui/RaisedButton";
 import Divider from "material-ui/Divider";
-import { Tabs, Tab } from "material-ui/Tabs";
-import SwipeableViews from "react-swipeable-views";
+// import { Tabs, Tab } from "material-ui/Tabs";
+// import SwipeableViews from "react-swipeable-views";
 
 import Account from "./Account";
-import GardenSummary from "./gardenSummary";
+// import GardenSummary from "./gardenSummary";
 import Transactions from "./Transactions";
 import Gardens from "./Gardens";
 import Seedlings from "./Seedlings";
