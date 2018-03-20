@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import Carousel from "nuka-carousel";
-import GardenSummary from "./gardenSummary";
 
+const style = {
+  width: "100vw",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  textAlign: "center",
+}
 export default class Home extends Component {
   render() {
     return (
@@ -11,13 +18,10 @@ export default class Home extends Component {
           width: "100vw",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <Carousel
-          // renderTopCenterControls={({ currentSlide }) => (
-          //   <div>Slide: {currentSlide}</div>
-          // )}
           renderCenterLeftControls={({ previousSlide }) => (
             <button onClick={previousSlide}>&lt;</button>
           )}
@@ -25,18 +29,22 @@ export default class Home extends Component {
             <button onClick={nextSlide}>&gt;</button>
           )}
         >
-          {
-            // <img src="http://placehold.it/400x400/ffffff/c0392b/&text=slide1" />
-            // <img src="http://placehold.it/400x400/ffffff/c0392b/&text=slide2" />
-            // <img src="http://placehold.it/400x400/ffffff/c0392b/&text=slide3" />
-            // <img src="http://placehold.it/400x400/ffffff/c0392b/&text=slide4" />
-            // <img src="http://placehold.it/400x400/ffffff/c0392b/&text=slide5" />
-            // <img src="http://placehold.it/400x400/ffffff/c0392b/&text=slide6" />
-          }
-          <GardenSummary />
-          <GardenSummary />
-          <GardenSummary />
-          <GardenSummary />
+          <div className="carousel-summary" style={style}>
+            <h1>Welcome to BenevoCent!</h1>
+            <p>Donate to charitable causes automatically</p>
+          </div>
+          <div className="carousel-summary" style={style}>
+            <h1>Change</h1>
+            <p>We round up your purchases to the next dollar and donate the change to a charity of your choice.</p>
+          </div>
+          <div className="carousel-summary" style={style}>
+            <img src="/svg/leaf.svg" alt="it's a leaf" style={{width: "50vw"}}/>
+            <p>By donating, you grow your virtual "garden"</p>
+          </div>
+          <div className="carousel-summary" style={style}>
+            <img src="/svg/leaves.svg" alt="it's leaves" style={{width: "50vw"}}/>
+            <p>Can can also join "Community Gardens" together with your friends</p>
+          </div>
         </Carousel>
       </div>
     );
