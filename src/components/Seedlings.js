@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Carousel from "nuka-carousel";
 import SeedlingSummary from "./SeedlingSummary"
 
-export default class Home extends Component {
+export default class Seedlings extends Component {
   render() {
     return (
       <div
@@ -26,9 +26,6 @@ export default class Home extends Component {
           <SeedlingSummary/>
           <SeedlingSummary/>
           <SeedlingSummary/>
-
-        
-          
         </Carousel>
       </div>
     );
