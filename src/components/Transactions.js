@@ -19,8 +19,7 @@ export default class Transactions extends Component {
 
   getTransactions() {
     var transactions = [];
-    db.collection("user_transactions")
-      .where("userUid", "==", this.props.user.uid)
+    db.collection("all_transactions").doc(this.props.user.uid).collection("user_transactions")
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -57,13 +56,26 @@ export default class Transactions extends Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            <TableRow>
-              <TableRowColumn>jan 01</TableRowColumn>
-              <TableRowColumn>chase credit card</TableRowColumn>
-              <TableRowColumn>kfc</TableRowColumn>
-              <TableRowColumn>$500.00</TableRowColumn>
-              <TableRowColumn>$0.00</TableRowColumn>
-            </TableRow>
+            
+              {
+                this.state.transactions.map(elem => {
+                  return (
+                    <TableRow>
+                      <TableRowColumn>{elem.date}</TableRowColumn>
+                      <TableRowColumn>{elem.account_id}</TableRowColumn>
+                      <TableRowColumn>{elem.name}</TableRowColumn>
+                      <TableRowColumn>${elem.amount}</TableRowColumn>
+                      <TableRowColumn>${elem.donation}</TableRowColumn>
+                    </TableRow>
+                  )
+                })
+                // <TableRowColumn>jan 01</TableRowColumn>
+                // <TableRowColumn>chase credit card</TableRowColumn>
+                // <TableRowColumn>kfc</TableRowColumn>
+                // <TableRowColumn>$500.00</TableRowColumn>
+                // <TableRowColumn>$0.00</TableRowColumn>
+              }
+            
           </TableBody>
         </Table>
       </div>
