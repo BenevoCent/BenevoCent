@@ -64,8 +64,8 @@ export default class Transactions extends Component {
                       <TableRowColumn>{elem.date}</TableRowColumn>
                       <TableRowColumn>{elem.account_id}</TableRowColumn>
                       <TableRowColumn>{elem.name}</TableRowColumn>
-                      <TableRowColumn>${elem.amount}</TableRowColumn>
-                      <TableRowColumn>${elem.donation}</TableRowColumn>
+                      <TableRowColumn>${elem.amount.toFixed(2)}</TableRowColumn>
+                      <TableRowColumn>${elem.donation.toFixed(2)}</TableRowColumn>
                     </TableRow>
                   )
                 })
