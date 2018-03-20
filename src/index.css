@@ -22,9 +22,10 @@ body {
   flex-direction: column;
 }
 
-#carousel-summary > img {
+#carousel-summary img {
   /* width: 85vw; */
-  height: 50vw;
+  /* height: 50vw; */
+  max-height: 50vw;
 }
 
 #loading-container {
