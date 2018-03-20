@@ -20,7 +20,6 @@ export default class Account extends Component {
   handleChange = (event, index, bank) => this.setState({ bank });
   handleSubmit = event => {
     event.preventDefault();
-    console.log("event.target", event.target);
     db
       .collection("accounts")
       .doc(`${this.state.bank} ${this.props.user.uid}`)
