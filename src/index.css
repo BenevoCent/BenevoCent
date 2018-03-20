@@ -22,7 +22,7 @@ body {
   flex-direction: column;
 }
 
-#carousel-summary img {
+#carousel-summary > img {
   /* width: 85vw; */
   height: 50vw;
 }
@@ -37,4 +37,30 @@ body {
 
 #account-info {
   padding-left: 20px;
+}
+
+
+.garden-grid {
+  display: flex;
+  flex-wrap: wrap;
+  background: #685132;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
+  width: 60vw;
+  height: 60vw;
+}
+
+.garden-grid > div {
+  width: 20vw;
+  height: 20vw;
+  border-style: solid;
+  border-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.garden-grid > div > img{
+  width: 20vw;
+  height: 20vw;
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(45deg);
+  
 }

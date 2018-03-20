@@ -1,60 +1,40 @@
+// Node Modules
 import React, { Component } from "react";
 import { Route, HashRouter, Link, Redirect, Switch } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
-import Home from "./Home";
-import Dashboard from "./protected/Dashboard";
-import { logout } from "../helpers/auth";
-import { firebaseAuth } from "../config/constants";
+
+// Material UI
 import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
 import CircularProgress from 'material-ui/CircularProgress';
 
-import Drawer from "material-ui/Drawer";
-import { List, ListItem } from "material-ui/List";
-// import MenuItem from "material-ui/MenuItem";
-// import RaisedButton from "material-ui/RaisedButton";
-import Divider from "material-ui/Divider";
-// import { Tabs, Tab } from "material-ui/Tabs";
-// import SwipeableViews from "react-swipeable-views";
+// Helpers and Constants
+import { logout } from "../helpers/auth";
+import { firebaseAuth } from "../config/constants";
 
+// Custom Components
+import AppDrawer from './AppDrawer';
+import Login from "./Login";
+import Register from "./Register";
+import Home from "./Home";
+import Dashboard from "./protected/Dashboard";
 import Account from "./Account";
-// import GardenSummary from "./gardenSummary";
 import Transactions from "./Transactions";
 import Gardens from "./Gardens";
 import Seedlings from "./Seedlings";
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
-  // console.log('index.js line 25', user)
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === true ? (
-          <Component {...props} user={user}/>
-        ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
-        )
-      }
-    />
+  return ( <Route {...rest} // these are props passed to Route
+    render={props => // "props" are passed to sub-component
+      authed === true ? (
+        <Component {...props} user={user}/> // remember to declare what other props you need. i.e "user={user}"
+      ) : (
+        <Redirect to= { { pathname: "/login", state: { from: props.location } } } />
+      )}/>
   );
 }
 
 function PublicRoute({ component: Component, authed, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === false ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/dashboard" />
-        )
-      }
-    />
-  );
+  return ( <Route {...rest} render={props => authed === false ? ( <Component {...props} /> ) : ( <Redirect to="/dashboard" /> )} /> );
 }
 
 export default class App extends Component {
@@ -66,14 +46,8 @@ export default class App extends Component {
     user: null,
   };
 
-  handleTabChange = value => {
-    this.setState({
-      tabIndex: value
-    });
-  };
-
+  handleTabChange = value => { this.setState ( { tabIndex: value } ) };
   handleToggle = () => this.setState({ open: !this.state.open });
-
   handleClose = () => this.setState({ open: false });
 
   componentDidMount() {
@@ -116,114 +90,17 @@ export default class App extends Component {
       </span>
     );
 
-    // const tabs = (
-    //   <div>
-    //     <Tabs onChange={this.handleTabChange} value={this.state.tabIndex}>
-    //       <Tab label="Transactions" value={0} />
-    //       <Tab label="Present" value={1} />
-    //       <Tab label="Discover" value={2} />
-    //     </Tabs>
-    //       <SwipeableViews
-    //         index={this.state.tabIndex}
-    //         onChangeIndex={this.handleChange}
-    //       >
-    //       <div>
-    //         <h2 style={{ fontSize: 24, paddingTop: 16, marginBottom: 12, fontWeight: 400 }}>Transactions</h2>
-    //         Swipe to see the next slide.<br />
-    //       </div>
-    //       <div style={{padding: 10}}>
-    //         Present
-    //         <Home/>
-    //       </div>
-    //       <div style={{padding: 10}}>Discover</div>
-    //     </SwipeableViews>
-    //   </div>
-    // )
-
-    // const topbarButtons = (
-    //   <div>
-    //     <Link to="/">
-    //       <FlatButton label="Home" style={{ color: "#fff" }} />
-    //     </Link>
-    //     <Link to="/dashboard">
-    //       <FlatButton label="dashboard" style={{ color: "#fff" }} />
-    //     </Link>
-    //     {authButtons}
-    //   </div>
-    // );
+    
     return this.state.loading === true ? (
-      // <h1>Loading</h1>
       <div id="loading-container">
         <CircularProgress size={80} thickness={5} />
       </div>
     ) : (
       <HashRouter>
         <div>
-          <Drawer
-            docked={false}
-            width={275}
-            open={this.state.open}
-            onRequestChange={open => this.setState({ open })}
-          >
-            <List>
-              <Link to="/">
-                <ListItem primaryText="Home" onClick={this.handleClose} />
-              </Link>
-              <Link to="/account">
-                <ListItem primaryText="Account" onClick={this.handleClose} />
-              </Link>
-              <Link to="/transactions">
-                <ListItem
-                  primaryText="Transactions"
-                  onClick={this.handleClose}
-                />
-              </Link>
-              <Link to="/gardens">
-                <ListItem primaryText="Gardens" onClick={this.handleClose} />
-              </Link>
-              <Link to="/seedlings">
-                <ListItem primaryText="Seedlings" onClick={this.handleClose} />
-              </Link>
-
-              <ListItem
-                primaryText="Discover"
-                initiallyOpen={true}
-                primaryTogglesNestedList={true}
-                nestedItems={[
-                  <Link key={"orgs"} to="/discover/orgs">
-                    <ListItem
-                      primaryText="Organizations / Non-Profits"
-                      onClick={this.handleClose}
-                      style={{ marginLeft: "18px" }}
-                    />
-                  </Link>,
-                  <Link key={"causes"} to="/discover/causes">
-                    <ListItem
-                      primaryText="Causes"
-                      onClick={this.handleClose}
-                      style={{ marginLeft: "18px" }}
-                    />
-                  </Link>
-                ]}
-              />
-              <Divider />
-
-              <Link to="/logout">
-                <ListItem primaryText="Logout" onClick={this.handleClose} />
-              </Link>
-
-              <Divider />
-
-              <Link to="/about">
-                <ListItem
-                  primaryText="About / Credits"
-                  onClick={this.handleClose}
-                />
-              </Link>
-            </List>
-          </Drawer>
+          <AppDrawer open={this.state.open} handleClose={this.handleClose} handleToggle={this.handleToggle} />
           <div>
-            <AppBar
+            <AppBar 
               title="BenevoCent"
               onLeftIconButtonTouchTap={this.handleToggle}
               // iconElementRight={topbarButtons}
@@ -235,36 +112,6 @@ export default class App extends Component {
                 marginTop: "0"
               }}
             />
-            {
-              // <Tabs onChange={this.handleTabChange} value={this.state.tabIndex}>
-              //   <Tab label="Transactions" value={0} />
-              //   <Tab label="Present" value={1} />
-              //   <Tab label="Discover" value={2} />
-              // </Tabs>
-              // <SwipeableViews
-              //   index={this.state.tabIndex}
-              //   onChangeIndex={this.handleChange}
-              // >
-              //   <div>
-              //     <h2
-              //       style={{
-              //         fontSize: 24,
-              //         paddingTop: 16,
-              //         marginBottom: 12,
-              //         fontWeight: 400
-              //       }}
-              //     >
-              //       Transactions
-              //     </h2>
-              //     Swipe to see the next slide.<br />
-              //   </div>
-              //   <div style={{ padding: 10 }}>
-              //     Present
-              //     <GardenSummary />
-              //   </div>
-              //   <div style={{ padding: 10 }}>Discover</div>
-              // </SwipeableViews>
-            }
 
             <div className="container d-flex justify-content-center mt-3">
               <div className="row">
