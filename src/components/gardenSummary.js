@@ -5,7 +5,7 @@ export default class GardenSummary extends Component {
     return (
       <div id="carousel-summary">
         <h3>Garden Summary</h3>
-        <img src="/svg/carrot.svg"/>
+        <img src="/svg/carrot.svg" alt="it's a carrot"/>
       </div>
     );
   }

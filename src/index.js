@@ -21,7 +21,7 @@ const muiTheme = getMuiTheme(
 
 
 ReactDOM.render(
-  <MuiThemeProvider muiTheme={getMuiTheme(getMuiTheme)}>
+  <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
     <App />
   </MuiThemeProvider>,
   document.getElementById('root')
