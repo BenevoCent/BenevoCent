@@ -69,11 +69,6 @@ export default class Transactions extends Component {
                     </TableRow>
                   )
                 })
-                // <TableRowColumn>jan 01</TableRowColumn>
-                // <TableRowColumn>chase credit card</TableRowColumn>
-                // <TableRowColumn>kfc</TableRowColumn>
-                // <TableRowColumn>$500.00</TableRowColumn>
-                // <TableRowColumn>$0.00</TableRowColumn>
               }
             
           </TableBody>
