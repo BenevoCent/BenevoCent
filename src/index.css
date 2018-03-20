@@ -40,7 +40,6 @@ body {
   padding-left: 20px;
 }
 
-
 .garden-grid {
   display: flex;
   flex-wrap: wrap;
@@ -59,9 +58,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .garden-grid > div > img{
   width: 20vw;
   height: 20vw;
   transform: rotateX(0deg) rotateY(0deg) rotateZ(45deg);
-  
 }
