@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 // Required for side-effects
-require('firebase/firestore');
+import 'firebase/firestore';
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
