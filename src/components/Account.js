@@ -36,9 +36,8 @@ export default class Account extends Component {
       .catch(function(error) {
         console.error("Error writing document: ", error);
       });
-    //create or update bank info
   };
-  
+
   getAccounts() {
     var userAccounts = [];
     db.collection("accounts")
@@ -52,7 +51,7 @@ export default class Account extends Component {
         return userAccounts
       })
       .then((userAccounts)=>
-        this.setState({userAccounts: userAccounts}, () => console.log(" line 55 ",this.state)) 
+        this.setState({userAccounts: userAccounts})
       )
       .catch(err => {
         console.log("Error getting documents", err);
@@ -65,12 +64,7 @@ export default class Account extends Component {
 
   render() {
     let userId = this.props.user.uid;
-
-    // let userAccounts = [];
-    // db.collection("accounts").where("uid", "==", userId).get()
-    //   .then(snapshot => { userAccounts = snapshot})
     const userAccounts = this.state.userAccounts;
-
     return (
       <div>
         <h1>Account Info</h1>
@@ -126,15 +120,6 @@ export default class Account extends Component {
             style={{ margin: 12 }}
           />
         </form>
-
-        {
-          // if (user.account){
-          //   show account details
-          // }
-          // else {
-          //   prompt the user to add an account
-          // }
-        }
       </div>
     );
   }
