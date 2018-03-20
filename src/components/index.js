@@ -101,7 +101,7 @@ export default class App extends Component {
           <AppDrawer open={this.state.open} handleClose={this.handleClose} handleToggle={this.handleToggle} />
           <div>
             <AppBar
-              title={<img src="/Benevocent_all_grass_bigC.png" style={{height: "55px" }} alt="logo"/>}
+              title={<img src="/Benevocent_all_grass_bigC.png" style={{height: "30px" }} alt="logo"/>}
               onLeftIconButtonTouchTap={this.handleToggle}
               // iconElementRight={topbarButtons}
               iconElementRight={authButtons}

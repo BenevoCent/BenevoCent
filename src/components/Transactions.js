@@ -44,7 +44,7 @@ export default class Transactions extends Component {
   render() {
     return (
       <div>
-        <h1>Transactions </h1>
+        <h1 style={{ paddingLeft: "20px" }}>Transactions</h1>
         <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
