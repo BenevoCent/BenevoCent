@@ -15,14 +15,14 @@ body {
   border-style: solid; */
 }
 
-#garden-summary {
+#carousel-summary {
   display: flex ;
   justify-content: center ;
   align-items: center;
   flex-direction: column;
 }
 
-#garden-summary img {
+#carousel-summary img {
   /* width: 85vw; */
   height: 50vw;
 }

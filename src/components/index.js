@@ -20,6 +20,8 @@ import SwipeableViews from "react-swipeable-views";
 import Account from "./Account";
 import GardenSummary from "./gardenSummary";
 import Transactions from "./Transactions";
+import Gardens from "./Gardens";
+import Seedlings from "./Seedlings";
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
   // console.log('index.js line 25', user)
@@ -290,6 +292,18 @@ export default class App extends Component {
                     authed={this.state.authed}
                     path="/transactions"
                     component={Transactions}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/gardens"
+                    component={Gardens}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/seedlings"
+                    component={Seedlings}
                     user={this.state.user}
                   />
                   <Route render={() => <h3>No Match</h3>} />
