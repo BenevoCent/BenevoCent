@@ -65,7 +65,7 @@ export default class Account extends Component {
     let userId = this.props.user.uid;
     const userAccounts = this.state.userAccounts;
     return (
-      <div>
+      <div id="account-info">
         <h1>Account Info</h1>
         <p>{userId}</p>
         {userAccounts

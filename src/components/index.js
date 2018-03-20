@@ -8,6 +8,7 @@ import { logout } from "../helpers/auth";
 import { firebaseAuth } from "../config/constants";
 import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
+import CircularProgress from 'material-ui/CircularProgress';
 
 import Drawer from "material-ui/Drawer";
 import { List, ListItem } from "material-ui/List";
@@ -151,7 +152,10 @@ export default class App extends Component {
     //   </div>
     // );
     return this.state.loading === true ? (
-      <h1>Loading</h1>
+      // <h1>Loading</h1>
+      <div id="loading-container">
+        <CircularProgress size={80} thickness={5} />
+      </div>
     ) : (
       <HashRouter>
         <div>
