@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { saveUser } from '../../helpers/auth';
 import { db, firebaseAuth } from '../../config/constants';
 
 function onGoogleLoginReload() {
@@ -7,26 +6,24 @@ function onGoogleLoginReload() {
   return firebaseAuth().getRedirectResult()
     .then(result => {
       const user = result.user;
-      db.collection('users')
-      .where('email', '==', user.email)
-      .get()
-      .then(snapshot => {
-        if (snapshot.docs.length === 0) {
-          saveUser(user);
-        }
-      })
+      const userRef = db.collection('users').doc(user.uid);
+
+      return db.runTransaction(async txn => {
+        const userData = await txn.get(userRef);
+        if (!userData.exists)
+        return txn.set(userRef, {
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          uid: user.uid
+        });
+      });
     })
     .catch(error => {
       const errorCode = error.code;
-      // const errorMessage = error.message;
-      // The email of the user's account used.
-      // const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      // var credential = error.credential;
+ 
       if (errorCode === 'auth/account-exists-with-different-credential') {
         alert('You have already signed up with a different auth provider for that email.');
-        // If you are using multiple auth providers on your app you should handle linking
-        // the user's accounts here.
       } else {
         console.error(error);
       }
