@@ -37,12 +37,12 @@ export default class AppDrawer extends Component {
                 onClick={this.props.handleClose}
               />
             </Link>
-            <Link to="/seedlings">
+            {/* <Link to="/seedlings">
               <ListItem
                 primaryText="Seedlings"
                 onClick={this.props.handleClose}
               />
-            </Link>
+            </Link> */}
 
             <ListItem
               primaryText="Discover"

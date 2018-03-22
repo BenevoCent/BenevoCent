@@ -22,10 +22,11 @@ body {
   flex-direction: column;
 }
 
-#carousel-summary img {
+#carousel-summary > img {
   /* width: 85vw; */
   /* height: 50vw; */
   max-height: 50vw;
+
 }
 
 #loading-container {
@@ -40,7 +41,7 @@ body {
   padding-left: 20px;
 }
 
-.garden-grid {
+/* .garden-grid {
   display: flex;
   flex-wrap: wrap;
   background: #685132;
@@ -57,10 +58,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.garden-grid > div > img{
+/* .garden-grid > div > img{
   width: 20vw;
   height: 20vw;
   transform: rotateX(0deg) rotateY(0deg) rotateZ(45deg);
-}
+} */

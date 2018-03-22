@@ -26,7 +26,9 @@ export function resetPassword(email) {
 export function saveUser(user) {
   return db
     .collection(`users`)
-    .add({
+    .doc(user.uid)
+    .set({
+    // .add({
       email: user.email,
       uid: user.uid
     })
