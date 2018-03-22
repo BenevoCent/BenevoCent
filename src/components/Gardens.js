@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Carousel from "nuka-carousel";
+// import Carousel from "nuka-carousel";
 import GardenGrid from "./GardenGrid";
 
 import { GridList, GridTile } from 'material-ui/GridList';
@@ -131,7 +131,7 @@ export default class Gardens extends Component {
     this.getGardens();
     this.getSelectedSeedling();
     this.getMonthlyDonations();
-    
+
   }
 
   render() {
@@ -159,7 +159,7 @@ export default class Gardens extends Component {
             <GardenGrid month={"March"} monthlyDonation={"3.50"} />
             <GardenGrid month={"March"} monthlyDonation={"3.50"} />
             <GardenGrid month={"March"} monthlyDonation={"3.50"} /> */}
-            
+
             {
                 // this.state.monthlyDonations.map(elem => {
                 //   return (
@@ -178,7 +178,7 @@ export default class Gardens extends Component {
                 actionIcon={
                   this.state.selectedSeedling === tile.title
                   ? <IconButton><CheckBox color="rgb(255, 255, 255)" /></IconButton>
-                  : <IconButton 
+                  : <IconButton
                       onClick={ () => {
                         this.setState({ selectedSeedling: tile.title })
                         db.collection("users")
@@ -200,7 +200,7 @@ export default class Gardens extends Component {
                 titleStyle={styles.titleStyle}
                 titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
               >
-                <img src={tile.img} />
+                <img src={tile.img} alt="tile" />
               </GridTile>
             ))}
           </GridList>
