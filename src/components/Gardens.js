@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Carousel from "nuka-carousel";
-import GardenSummary from "./gardenSummary";
+import GardenGrid from "./GardenGrid";
 
 import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
@@ -71,9 +71,24 @@ export default class Gardens extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gardens: [],
       selectedSeedling: "",
+      gardens: [],
+      monthlyDonations: [],
     };
+  }
+  getSelectedSeedling(){
+    console.log("getSelectedSeedling")
+    let selectedSeedling = "";
+    db.collection("users")
+      .where("uid", "==", this.props.user.uid)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          selectedSeedling = doc.data().selectedSeedling;
+        });
+        return selectedSeedling
+      })
+      .then(selectedSeedling => this.setState({ selectedSeedling: selectedSeedling }))
   }
   getGardens() {
     var gardens = [];
@@ -94,24 +109,29 @@ export default class Gardens extends Component {
         console.log("Error getting documents", err);
       });
   }
-  getSelectedSeedling(){
-    console.log("getSelectedSeedling")
-    let selectedSeedling = "";
-    db.collection("users")
-      .where("uid", "==", this.props.user.uid)
+  getMonthlyDonations(){
+    console.log("getMonthlyDonations()")
+    let monthlyDonations = [];
+    db.collection("all_donations").doc(this.props.user.uid).collection("user_donations")
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
-          selectedSeedling = doc.data().selectedSeedling;
+          monthlyDonations.push( { month: doc.id, monthlyDonation: doc.data().totalDonations } );
+          console.log(doc.id, "=>", doc.data());
         });
-        return selectedSeedling
+        return monthlyDonations
       })
-      .then(selectedSeedling => this.setState({ selectedSeedling: selectedSeedling }))
+      .then(monthlyDonations => {
+        this.setState({ monthlyDonations: monthlyDonations })
+        console.log(this.state.monthlyDonations)
+      })
   }
 
   componentDidMount() {
     this.getGardens();
     this.getSelectedSeedling();
+    this.getMonthlyDonations();
+    
   }
 
   render() {
@@ -134,10 +154,14 @@ export default class Gardens extends Component {
               <button onClick={nextSlide}>&gt;</button>
             )}
           >
-            <GardenSummary />
-            <GardenSummary />
-            <GardenSummary />
-            <GardenSummary />
+         <GardenGrid month={"March"} monthlyDonation={"3.50"} />
+            {
+                // this.state.monthlyDonations.map(elem => {
+                //   return (
+                //     <GardenGrid month={elem.month} monthlyDonation={elem.monthlyDonation} />
+                //   )
+                // })
+              }
           </Carousel>
         </div>
         <div style={styles.root}>
