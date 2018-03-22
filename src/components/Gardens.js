@@ -77,7 +77,6 @@ export default class Gardens extends Component {
     };
   }
   getSelectedSeedling(){
-    console.log("getSelectedSeedling")
     let selectedSeedling = "";
     db.collection("users")
       .where("uid", "==", this.props.user.uid)
@@ -110,7 +109,6 @@ export default class Gardens extends Component {
       });
   }
   getMonthlyDonations(){
-    console.log("getMonthlyDonations()")
     let monthlyDonations = [];
     db.collection("all_donations").doc(this.props.user.uid).collection("user_donations")
       .get()

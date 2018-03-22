@@ -5,9 +5,11 @@ cache:
   directories:
     - node_modules
 install:
-  - npm install
+  - npm i
+script:
+  - npm build
+  - npm test
 notifications:
   email:
     on_success: change # default: change (only when going from broken to fixed)
     on_failure: always # default: always (which is annoying, as it should be)
-    
