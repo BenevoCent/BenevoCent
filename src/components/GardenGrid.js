@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import IsometricGrid, { Cell } from 'react-isometric-grid';
 import dynamics from 'dynamics.js';
 
+const styles = {
+  cell: {
+    height: '16vw', width: '16vw', padding: '0', margin: '0'
+  }
+}
+
 export default class GardenGrid extends Component {
   render() {
     return (
       <div id="carousel-summary">
-        <h3>{this.props.month} ${this.props.monthlyDonation}</h3>
+        <h3>${this.props.monthlyDonation}</h3>
         <IsometricGrid
           shadow
           transform="rotateX(45deg) rotateZ(45deg)"
@@ -29,7 +35,7 @@ export default class GardenGrid extends Component {
               };
             },
           }}
-          style={{ height: '70vw', width: '70vw' }}
+          style={{ height: '70vw', width: '70vw', transformStyle: 'preserve-3d', transform: 'perspective(3000px) rotateX(45deg) rotateZ(45deg)', display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }}
         >
           <Cell
             layers={[
@@ -38,8 +44,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -48,8 +54,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -58,8 +64,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -68,8 +74,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -78,8 +84,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -88,8 +94,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -98,8 +104,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -108,8 +114,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
           <Cell
             layers={[
@@ -118,8 +124,8 @@ export default class GardenGrid extends Component {
               '#7c684c',
               '#968670',
             ]}
-            style={{ height: '16vw', width: '16vw' }}
-            layerStyle={{ height: '16vw', width: '16vw' }}
+            style={styles.cell}
+            layerStyle={styles.cell}
           />
         </IsometricGrid>
       </div>
