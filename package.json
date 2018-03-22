@@ -2,7 +2,7 @@
   "name": "react-router-firebase-auth-material-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://guilherme6191.github.io/react-router-firebase-auth-material-ui",
+  "homepage": "https://benevocent.firebaseapp.com/",
   "dependencies": {
     "firebase": "4.6.0",
     "gh-pages": "^1.1.0",
