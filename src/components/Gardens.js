@@ -146,7 +146,8 @@ export default class Gardens extends Component {
             alignItems: "center"
           }}
         >
-          <Carousel
+          <GardenGrid month={"March"} monthlyDonation={"3.50"} />
+          {/* <Carousel
             renderCenterLeftControls={({ previousSlide }) => (
               <button onClick={previousSlide}>&lt;</button>
             )}
@@ -154,7 +155,11 @@ export default class Gardens extends Component {
               <button onClick={nextSlide}>&gt;</button>
             )}
           >
-         <GardenGrid month={"March"} monthlyDonation={"3.50"} />
+            <GardenGrid month={"March"} monthlyDonation={"3.50"} />
+            <GardenGrid month={"March"} monthlyDonation={"3.50"} />
+            <GardenGrid month={"March"} monthlyDonation={"3.50"} />
+            <GardenGrid month={"March"} monthlyDonation={"3.50"} /> */}
+            
             {
                 // this.state.monthlyDonations.map(elem => {
                 //   return (
@@ -162,7 +167,7 @@ export default class Gardens extends Component {
                 //   )
                 // })
               }
-          </Carousel>
+          {/* </Carousel> */}
         </div>
         <div style={styles.root}>
           <GridList style={styles.gridList} cols={2.2}>
