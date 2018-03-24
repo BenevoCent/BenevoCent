@@ -171,6 +171,12 @@ export default class App extends Component {
                     component={Charities}
                     user={this.state.user}
                   />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/test"
+                    component={Test}
+                    user={this.state.user}
+                  />
                   <Route render={() => <h3>No Match</h3>} />
                 </Switch>
               </div>
