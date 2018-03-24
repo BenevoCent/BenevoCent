@@ -90,7 +90,7 @@ export default class Gardens extends Component {
       .then(selectedSeedling => this.setState({ selectedSeedling: selectedSeedling }))
   }
   getGardens() {
-    var gardens = [];
+    let gardens = [];
     db.collection("gardens").doc(this.props.user.uid).collection("user_gardens")
       .get()
       .then(snapshot => {

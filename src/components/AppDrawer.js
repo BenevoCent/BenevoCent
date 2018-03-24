@@ -68,14 +68,17 @@ export default class AppDrawer extends Component {
             <Divider />
 
             <Link to="/logout">
-              <ListItem primaryText="Logout" onClick={this.props.handleClose} />
+              <ListItem
+              primaryText="Logout"
+              onClick={this.props.handleClose}
+              />
             </Link>
 
             <Divider />
 
             <Link to="/about">
               <ListItem
-                primaryText="About / Credits"
+                primaryText="About"
                 onClick={this.props.handleClose}
               />
             </Link>
