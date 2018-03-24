@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import IsometricGrid, { Cell } from "react-isometric-grid";
-import dynamics from "dynamics.js";
+import React, { Component } from 'react';
+import IsometricGrid, { Cell } from 'react-isometric-grid';
+import dynamics from 'dynamics.js';
 
 const styles = {
   cell: {
-    height: "16vw",
-    width: "16vw",
-    padding: "0",
-    margin: "0",
+    height: '16vw',
+    width: '16vw',
+    padding: '0',
+    margin: '0',
     // opacity: "0.7"
   }
 };
@@ -17,14 +17,13 @@ export default class GardenGrid extends Component {
     // console.log("gardengrid plots", this.props.plots)
     let gardenPlots = [];
     for (let i = 0; i < this.props.plots.length; i++) {
-      let topLayer = "#000000";
-      if (this.props.plots[i] !== null)
-        topLayer = `/svg/${this.props.plots[i]}.svg`;
+      let topLayer = '#000000';
+      if (this.props.plots[i] !== null) {topLayer = `/svg/${this.props.plots[i]}.svg`;}
       gardenPlots.push(topLayer);
     }
     // console.log("gardenPlots", gardenPlots);
     return (
-      <div id="carousel-summary" 
+      <div id="carousel-summary"
         // style={{
         //   backgroundImage: `url("grass.jpg")`,
         //   boxShadow: '10px 10px 5px grey'
@@ -54,16 +53,16 @@ export default class GardenGrid extends Component {
             }
           }}
           style={{
-            height: "70vw",
-            width: "70vw",
-            transformStyle: "preserve-3d",
-            transform: "perspective(3000px) rotateX(45deg) rotateZ(45deg)",
-            display: "flex",
-            flexWrap: "wrap",
-            flexDirection: "row",
+            height: '70vw',
+            width: '70vw',
+            transformStyle: 'preserve-3d',
+            transform: 'perspective(3000px) rotateX(45deg) rotateZ(45deg)',
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'row',
             // backgroundColor: "mediumseagreen",
             // boxShadow: "18px 18px 10px grey",
-            margin: "0 0 0 0",
+            margin: '0 0 0 0',
             // opacity: "0.4",
           }}
         >
@@ -80,53 +79,53 @@ export default class GardenGrid extends Component {
             // })
           }
 
-          
+
             <Cell
-              layers={[gardenPlots[0], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[0], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[1], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[1], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[2], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[2], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[3], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[3], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[4], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[4], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[5], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[5], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[6], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[6], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[7], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[7], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
             <Cell
-              layers={[gardenPlots[8], "#685132", "#7c684c", "#968670"]}
+              layers={[gardenPlots[8], '#685132', '#7c684c', '#968670']}
               style={styles.cell}
               layerStyle={styles.cell}
             />
-            
+
         </IsometricGrid>
       </div>
     );

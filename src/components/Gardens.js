@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 // Used to change month and grid
 import RaisedButton from 'material-ui/RaisedButton';
@@ -6,30 +6,31 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
-import GardenGrid from "./GardenGrid";
+// import GardenGrid from './GardenGrid';
+import GardenGridV2 from './GardenGridV2';
 
 // used to display and selected available seedlings
-import { GridList, GridTile } from "material-ui/GridList";
-import IconButton from "material-ui/IconButton";
-import CheckBox from "material-ui-icons/CheckBox";
-import CheckBoxOutlineBlank from "material-ui-icons/CheckBoxOutlineBlank";
+import { GridList, GridTile } from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import CheckBox from 'material-ui-icons/CheckBox';
+import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
-import { db } from "../config/constants";
+import { db } from '../config/constants';
 
 const styles = {
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around"
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
   },
   gridList: {
-    display: "flex",
-    flexWrap: "nowrap",
-    overflowX: "auto",
-    width: "100vw"
+    display: 'flex',
+    flexWrap: 'nowrap',
+    overflowX: 'auto',
+    width: '100vw'
   },
   titleStyle: {
-    color: "rgb(255, 255, 255)"
+    color: 'rgb(255, 255, 255)'
   },
   headline: {
     fontSize: 24,
@@ -44,40 +45,40 @@ const styles = {
 
 const tilesData = [
   {
-    img: "/svg/carrot.svg",
-    title: "carrot"
+    img: '/svg/carrot.svg',
+    title: 'carrot'
   },
   {
-    img: "/svg/radish-1.svg",
-    title: "radish-1"
+    img: '/svg/radish-1.svg',
+    title: 'radish-1'
   },
   {
-    img: "/svg/aubergine.svg",
-    title: "aubergine"
+    img: '/svg/aubergine.svg',
+    title: 'aubergine'
   },
   {
-    img: "/svg/broccoli.svg",
-    title: "broccoli"
+    img: '/svg/broccoli.svg',
+    title: 'broccoli'
   },
   {
-    img: "/svg/grapes.svg",
-    title: "grapes"
+    img: '/svg/grapes.svg',
+    title: 'grapes'
   },
   {
-    img: "/svg/onion.svg",
-    title: "onion"
+    img: '/svg/onion.svg',
+    title: 'onion'
   },
   {
-    img: "/svg/peas.svg",
-    title: "peas"
+    img: '/svg/peas.svg',
+    title: 'peas'
   },
   {
-    img: "/svg/pumpkin.svg",
-    title: "pumpkin"
+    img: '/svg/pumpkin.svg',
+    title: 'pumpkin'
   },
   {
-    img: "/svg/strawberry.svg",
-    title: "strawberry"
+    img: '/svg/strawberry.svg',
+    title: 'strawberry'
   }
 ];
 
@@ -85,20 +86,20 @@ export default class Gardens extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedSeedling: "",
+      selectedSeedling: '',
       gardens: [],
       monthlyDonations: [],
       menuOpen: false,
-      selectedMonthName: "",
-      selectedmonthDonation: 0,
+      selectedMonthName: '',
+      selectedMonthDonation: 0,
       plots: [],
     };
   }
   getSelectedSeedling() {
-    let selectedSeedling = "";
+    let selectedSeedling = '';
     db
-      .collection("users")
-      .where("uid", "==", this.props.user.uid)
+      .collection('users')
+      .where('uid', '==', this.props.user.uid)
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -113,9 +114,9 @@ export default class Gardens extends Component {
   getGardens() {
     var gardens = [];
     db
-      .collection("gardens")
+      .collection('gardens')
       .doc(this.props.user.uid)
-      .collection("user_gardens")
+      .collection('user_gardens')
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -129,15 +130,15 @@ export default class Gardens extends Component {
         // console.log("gardens", gardens);
       })
       .catch(err => {
-        console.log("Error getting documents", err);
+        console.log('Error getting documents', err);
       });
   }
   getMonthlyDonations() {
     let monthlyDonations = [];
     db
-      .collection("all_donations")
+      .collection('all_donations')
       .doc(this.props.user.uid)
-      .collection("user_donations")
+      .collection('user_donations')
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -150,7 +151,7 @@ export default class Gardens extends Component {
         return monthlyDonations;
       })
       .then(monthlyDonations => {
-        this.setState({ 
+        this.setState({
           monthlyDonations: monthlyDonations,
           selectedMonthName: monthlyDonations[0].month,
           selectedMonthDonation: monthlyDonations[0].monthlyDonation,
@@ -179,8 +180,9 @@ export default class Gardens extends Component {
   getPlots = (month, uid) => {
     let plots = [];
     // console.log('uid', uid, 'month', month)
-    db.collection("gardens").doc(uid)
-    .collection("user_gardens").doc(month)
+    db.collection('gardens').doc(uid)
+    .collection('user_gardens')
+.doc(month)
       .get()
       .then(doc => {
         let arr = Object.keys(doc.data())
@@ -193,14 +195,14 @@ export default class Gardens extends Component {
         // console.log('this.state', this.state)
       })
       .catch(err => {
-        console.log("Error getting documents", err);
+        console.log('Error getting documents', err);
       });
     // console.log('get the month ', month, 'get the uid ', uid )
   }
   selectMonth = (month, donation) => {
     this.setState({
       selectedMonthName: month,
-      selectedmonthDonation: donation,
+      selectedMonthDonation: donation,
     })
   }
 
@@ -231,7 +233,8 @@ export default class Gardens extends Component {
           {
             this.state.monthlyDonations.map(elem => {
             return (
-              <MenuItem key={elem.month} primaryText={elem.month} onClick={ () => { 
+              <MenuItem
+                key={elem.month} primaryText={elem.month} onClick={ () => {
                 this.selectMonth(elem.month, elem.monthlyDonation);
                 this.getPlots(elem.month, this.props.user.uid)
                 this.handleRequestClose();
@@ -240,9 +243,14 @@ export default class Gardens extends Component {
           }
         </Menu>
       </Popover>
-        
-        <GardenGrid 
-          monthlyDonation={this.state.selectedmonthDonation} 
+        {
+          // <GardenGrid
+          //   monthlyDonation={this.state.selectedMonthDonation}
+          //   plots={this.state.plots}
+          // />
+        }
+        <GardenGridV2
+          monthlyDonation={this.state.selectedMonthDonation}
           plots={this.state.plots}
         />
 
@@ -262,7 +270,7 @@ export default class Gardens extends Component {
                       onClick={() => {
                         this.setState({ selectedSeedling: tile.title });
                         db
-                          .collection("users")
+                          .collection('users')
                           .doc(this.props.user.uid)
                           .set(
                             {
@@ -271,10 +279,10 @@ export default class Gardens extends Component {
                             { merge: true }
                           )
                           .then(function() {
-                            console.log("Document successfully written!");
+                            console.log('Document successfully written!');
                           })
                           .catch(function(error) {
-                            console.error("Error writing document: ", error);
+                            console.error('Error writing document: ', error);
                           });
                       }}
                     >
