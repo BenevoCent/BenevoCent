@@ -91,6 +91,7 @@ export default class Gardens extends Component {
       menuOpen: false,
       selectedMonthName: "",
       selectedmonthDonation: 0,
+      plots: [],
     };
   }
   getSelectedSeedling() {
@@ -119,13 +120,13 @@ export default class Gardens extends Component {
       .then(snapshot => {
         snapshot.forEach(doc => {
           gardens.push(doc.data());
-          console.log(doc.id, "=>", doc.data());
+          // console.log(doc.id, "=>", doc.data());
         });
         return gardens;
       })
       .then(gardens => {
         this.setState({ gardens: gardens });
-        console.log("gardens", gardens);
+        // console.log("gardens", gardens);
       })
       .catch(err => {
         console.log("Error getting documents", err);
@@ -144,7 +145,7 @@ export default class Gardens extends Component {
             month: doc.id,
             monthlyDonation: doc.data().totalDonations
           });
-          console.log(doc.id, "=>", doc.data());
+          // console.log(doc.id, "=>", doc.data());
         });
         return monthlyDonations;
       })
@@ -152,10 +153,14 @@ export default class Gardens extends Component {
         this.setState({ 
           monthlyDonations: monthlyDonations,
           selectedMonthName: monthlyDonations[0].month,
-          selectedmonthDonation: monthlyDonations[0].monthlyDonation,
+          selectedMonthDonation: monthlyDonations[0].monthlyDonation,
         });
-        console.log(this.state.monthlyDonations);
-      });
+        // console.log('this.state', this.state);
+      })
+      .then( () => {
+        // console.log('month', this.state.selectedMonthName, this.props.user.uid)
+        this.getPlots(this.state.selectedMonthName, this.props.user.uid)
+      })
   }
   handleClick = (event) => {
     // This prevents ghost click.
@@ -171,6 +176,27 @@ export default class Gardens extends Component {
       menuOpen: false,
     });
   };
+  getPlots = (month, uid) => {
+    let plots = [];
+    // console.log('uid', uid, 'month', month)
+    db.collection("gardens").doc(uid)
+    .collection("user_gardens").doc(month)
+      .get()
+      .then(doc => {
+        let arr = Object.keys(doc.data())
+        arr.forEach(key => plots.push(doc.data()[key]))
+        return plots;
+      })
+      .then(plots => {
+        this.setState({ plots: plots });
+        // console.log('plots', plots);
+        // console.log('this.state', this.state)
+      })
+      .catch(err => {
+        console.log("Error getting documents", err);
+      });
+    // console.log('get the month ', month, 'get the uid ', uid )
+  }
   selectMonth = (month, donation) => {
     this.setState({
       selectedMonthName: month,
@@ -187,10 +213,13 @@ export default class Gardens extends Component {
   render() {
     return (
       <div>
-      <RaisedButton
-        onClick={this.handleClick}
-        label={this.state.selectedMonthName}
-      />
+        <div style={{width: '100vw'}}>
+          <RaisedButton
+            onClick={this.handleClick}
+            label={this.state.selectedMonthName}
+            style={{marginLeft: '20px'}}
+          />
+        </div>
       <Popover
         open={this.state.menuOpen}
         anchorEl={this.state.anchorEl}
@@ -202,9 +231,9 @@ export default class Gardens extends Component {
           {
             this.state.monthlyDonations.map(elem => {
             return (
-              <MenuItem primaryText={elem.month} onClick={ () => { 
-                console.log('clicked');
+              <MenuItem key={elem.month} primaryText={elem.month} onClick={ () => { 
                 this.selectMonth(elem.month, elem.monthlyDonation);
+                this.getPlots(elem.month, this.props.user.uid)
                 this.handleRequestClose();
               } } />
             )})
@@ -212,7 +241,10 @@ export default class Gardens extends Component {
         </Menu>
       </Popover>
         
-        <GardenGrid monthlyDonation={this.state.selectedmonthDonation} />
+        <GardenGrid 
+          monthlyDonation={this.state.selectedmonthDonation} 
+          plots={this.state.plots}
+        />
 
         <div style={styles.root}>
           <GridList style={styles.gridList} cols={2.2}>
