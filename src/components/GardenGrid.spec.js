@@ -24,7 +24,7 @@ it('renders without crashing', (done) => {
   const div = document.createElement('div')
   ReactDOM.render(
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-      <GardenGrid />
+      <GardenGrid plots={[]} />
     </MuiThemeProvider>, div)
   setTimeout(() => done());
 })

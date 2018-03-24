@@ -23,6 +23,9 @@ import Gardens from "./Gardens";
 import Seedlings from "./Seedlings";
 import Charities from "./Charities";
 
+// Test
+import Test from "./GardenGridV2";
+
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
   return ( <Route {...rest} // these are props passed to Route
     render={props => // "props" are passed to sub-component
