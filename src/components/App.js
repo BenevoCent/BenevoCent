@@ -167,7 +167,7 @@ export default class App extends Component {
                   />
                   <PrivateRoute
                     authed={this.state.authed}
-                    path="/discover/orgs"
+                    path="/orgs"
                     component={Charities}
                     user={this.state.user}
                   />

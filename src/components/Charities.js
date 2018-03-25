@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui-icons/CheckBox';
-import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
+// import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
 import SearchBar from 'material-ui-search-bar'
 
