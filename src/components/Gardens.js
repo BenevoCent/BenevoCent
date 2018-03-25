@@ -53,7 +53,7 @@ const tilesData = [
     title: 'radish-1'
   },
   {
-    img: '/svg/aubergine.svg',
+    img: 'https://drive.google.com/uc?export=download&id=1-ZGJdll313uAd49Zu4k7R0JO3RBtP7Md',
     title: 'aubergine'
   },
   {

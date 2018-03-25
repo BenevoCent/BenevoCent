@@ -1,6 +1,8 @@
 // Node Modules
 import React, { Component } from "react";
 import { Route, HashRouter, Link, Redirect, Switch } from "react-router-dom";
+import {StripeProvider} from 'react-stripe-elements';
+
 
 // Material UI
 import AppBar from "material-ui/AppBar";
@@ -24,6 +26,7 @@ import Seedlings from "./Seedlings";
 
 // Test
 import Test from "./GardenGridV2";
+import LumpPayment from "./lumpPayment";
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
   return ( <Route {...rest} // these are props passed to Route
@@ -166,6 +169,15 @@ export default class App extends Component {
                     component={Test}
                     user={this.state.user}
                   />
+                  {/*recent add lumpSum route*/}
+                  <StripeProvider apiKey="pk_test_7NDxNFwTXZI5iGsCursLGPh2">
+                    <PrivateRoute
+                      authed={this.state.authed}
+                      path="/stripe"
+                      component={LumpPayment}
+                      user={this.state.user}
+                    />
+                  </StripeProvider>
                   <Route render={() => <h3>No Match</h3>} />
                 </Switch>
               </div>
