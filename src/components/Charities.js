@@ -31,6 +31,7 @@ export default class Charities extends Component {
     super(props);
     this.state = {
       charities: [],
+      searchVal: '',
     };
   }
 
@@ -42,7 +43,6 @@ export default class Charities extends Component {
     .then(snapshot => {
       snapshot.forEach(doc => {
         charities.push(doc.data());
-        console.log(doc.id, '=>', doc.data());
       });
       return charities;
     })
@@ -55,15 +55,24 @@ export default class Charities extends Component {
     });
   }
 
+  handleChange = (evt) => {
+    console.log(evt)
+    this.setState({
+      searchVal: evt
+    });
+  }
+
   componentDidMount() {
     this.getCharities();
   }
 
   render() {
+    const updatedCharities = this.state.charities.filter(item => item.name.toLowerCase().match(this.state.searchVal.toLowerCase()))
+
     return (
       <div style={styles.root}>
         <SearchBar
-          onChange={() => console.log('onChange')}
+          onChange={this.handleChange}
           onRequestSearch={() => console.log('onRequestSearch')}
           style={{
             margin: '3',
@@ -72,9 +81,9 @@ export default class Charities extends Component {
           }}
         />
         <GridList style={styles.gridList} cols={2}>
-          {this.state.charities && this.state.charities.map((charity) => (
+          {updatedCharities.map((charity) => (
             <GridTile
-              key={charity.img}
+              key={charity.name}
               title={charity.name}
               subtitle={<span><b>{charity.tag}</b></span>}
               actionIcon={
