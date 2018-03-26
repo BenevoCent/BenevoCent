@@ -96,17 +96,15 @@ export default class Gardens extends Component {
     };
   }
   getSelectedSeedling() {
-    let selectedSeedling = '';
-    db
-      .collection('users')
-      .where('uid', '==', this.props.user.uid)
+    if (this.props.user.uid){
+      console.log('yay', this.props.user.uid);
+    } else {
+      console.log('nay');
+    }
+    db.collection('users')
+      .doc(this.props.user.uid)
       .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          selectedSeedling = doc.data().selectedSeedling;
-        });
-        return selectedSeedling;
-      })
+      .then(doc => doc.data().selectedSeedling)
       .then(selectedSeedling =>
         this.setState({ selectedSeedling: selectedSeedling })
       );
@@ -259,7 +257,7 @@ export default class Gardens extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{marginTop: "1rem"}}>
         <div style={{width: '100vw'}}>
           <RaisedButton
             labelStyle={{textTransform: 'lowercase capitalize', fontSize: "16px"}}

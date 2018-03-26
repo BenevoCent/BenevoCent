@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
+import { Tabs, Tab } from 'material-ui/Tabs';
+import SwipeableViews from 'react-swipeable-views';
+
 import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui-icons/CheckBox';
-// import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
+import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
-import SearchBar from 'material-ui-search-bar'
+import SearchBar from 'material-ui-search-bar';
 
 import { db } from '../config/constants';
 
@@ -14,16 +17,17 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    marginTop: '1rem',
   },
   gridList: {
     display: 'flex',
     overflowX: 'auto',
     height: '82vh',
-    width: '90vw',
+    width: '90vw'
   },
   titleStyle: {
-    color: 'rgb(255, 255, 255)',
-  },
+    color: 'rgb(255, 255, 255)'
+  }
 };
 
 export default class Charities extends Component {
@@ -31,81 +35,137 @@ export default class Charities extends Component {
     super(props);
     this.state = {
       charities: [],
+      selectedCharities: {},
       searchVal: '',
+      tabIndex: 0,
     };
   }
 
   getCharities() {
     let charities = [];
     db
-    .collection('charities')
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        charities.push(doc.data());
+      .collection('charities')
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          charities.push(doc.data());
+        });
+        return charities;
+      })
+      .then(charities => {
+        this.setState({ charities });
+        console.log('charities', charities);
+      })
+      .catch(err => {
+        console.log('Error getting documents', err);
       });
-      return charities;
-    })
-    .then(charities => {
-      this.setState({ charities });
-      console.log('charities', charities);
-    })
-    .catch(err => {
-      console.log('Error getting documents', err);
-    });
   }
 
-  handleChange = (evt) => {
-    console.log(evt)
+  getSelectedCharities() {
+    db.collection('distributions')
+    .doc(this.props.user.uid)
+    .get()
+    .then(doc => doc.data())
+    .then(selectedCharities => {
+      let namedCharities = {};
+      Object.keys(selectedCharities).map(key => {
+        db.collection('charities')
+        .doc(key)
+        .get()
+        .then(doc => doc.data().name)
+        .then((name) => {
+          namedCharities[name] = selectedCharities[key];
+        })
+      })
+      this.setState({selectedCharities: namedCharities})
+    })
+  }
+
+  tabChange = (value) => {
+    this.setState({
+      tabIndex: value
+    });
+  };
+
+  handleChange = evt => {
+    console.log(evt);
     this.setState({
       searchVal: evt
     });
-  }
+  };
 
   componentDidMount() {
     this.getCharities();
+    this.getSelectedCharities();
   }
 
   render() {
-    const updatedCharities = this.state.charities.filter(item => item.name.toLowerCase().match(this.state.searchVal.toLowerCase()))
+    const updatedCharities = this.state.charities.filter(item =>
+      item.name.toLowerCase().match(this.state.searchVal.toLowerCase())
+    );
 
     return (
-      <div style={styles.root}>
-        <SearchBar
-          onChange={this.handleChange}
-          onRequestSearch={() => console.log('onRequestSearch')}
-          style={{
-            margin: '3',
-            marginBottom: '5px',
-            width: '90vw',
-          }}
-        />
-        <GridList style={styles.gridList} cols={2}>
-          {updatedCharities.map((charity) => (
-            <GridTile
-              key={charity.name}
-              title={charity.name}
-              subtitle={<span><b>{charity.tag}</b></span>}
-              actionIcon={
-                <IconButton>
-                  <CheckBox color="rgb(255, 255, 255)" />
-                </IconButton>
-              }
+      <div style={{width: '100vw'}}>
+        <Tabs onChange={this.tabChange} value={this.state.tabIndex}>
+          <Tab label="Organizations" value={0} />
+          <Tab label="Split Donations" value={1} />
+        </Tabs>
+        <SwipeableViews
+          index={this.state.tabIndex}
+          onChangeIndex={this.tabChange}
+        >
+          <div style={styles.root}>
+            <SearchBar
+              onChange={this.handleChange}
+              onRequestSearch={() => console.log('onRequestSearch')}
               style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                // flexDirection: 'column',
+                margin: '3',
+                marginBottom: '5px',
+                width: '90vw'
               }}
-              titleStyle={styles.titleStyle}
-              titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-            >
-              <img src={charity.img} alt="charity" />
-              <br />
-              <a href={charity.url} target="_blank">Main Website</a>
-            </GridTile>
-          ))}
-        </GridList>
+            />
+            <GridList style={styles.gridList} cols={2}>
+              {updatedCharities.map(charity => (
+                <GridTile
+                  key={charity.name}
+                  title={charity.name}
+                  subtitle={
+                    <span>
+                      <b>{charity.tag}</b>
+                    </span>
+                  }
+                  actionIcon={
+                    <IconButton>
+                      <CheckBox color="rgb(255, 255, 255)" />
+                    </IconButton>
+                  }
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                    // flexDirection: 'column',
+                  }}
+                  titleStyle={styles.titleStyle}
+                  titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+                >
+                  <img src={charity.img} alt="charity" />
+                  <br />
+                  <a href={charity.url} target="_blank">
+                    Main Website
+                  </a>
+                </GridTile>
+              ))}
+            </GridList>
+          </div>
+          <div style={styles.root}>
+            <h1>Split</h1>
+            {
+              Object.keys(this.state.selectedCharities).map(key => {
+                return (<li key={key} >{key} {this.state.selectedCharities[key]} </li>)
+             })
+            }
+          </div>
+        </SwipeableViews>
       </div>
     );
   }

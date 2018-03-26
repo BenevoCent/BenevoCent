@@ -121,7 +121,7 @@ export default class App extends Component {
               }}
             />
 
-            <div className="container d-flex justify-content-center mt-3">
+            <div className="container d-flex justify-content-center">
               <div className="row">
                 <Switch>
                   <Route path="/" exact component={Home} />
