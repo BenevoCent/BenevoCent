@@ -21,6 +21,10 @@ import Account from "./Account";
 import Transactions from "./Transactions";
 import Gardens from "./Gardens";
 import Seedlings from "./Seedlings";
+import Charities from "./Charities";
+
+// Test
+import Test from "./GardenGridV2";
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
   return ( <Route {...rest} // these are props passed to Route
@@ -98,7 +102,11 @@ export default class App extends Component {
     ) : (
       <HashRouter>
         <div>
-          <AppDrawer open={this.state.open} handleClose={this.handleClose} handleToggle={this.handleToggle} />
+          <AppDrawer
+          open={this.state.open}
+          handleClose={this.handleClose}
+          handleToggle={this.handleToggle}
+          />
           <div>
             <AppBar
               title={<img src="/Benevocent_all_grass_bigC.png" style={{height: "30px" }} alt="logo"/>}
@@ -155,6 +163,18 @@ export default class App extends Component {
                     authed={this.state.authed}
                     path="/seedlings"
                     component={Seedlings}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/orgs"
+                    component={Charities}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    path="/test"
+                    component={Test}
                     user={this.state.user}
                   />
                   <Route render={() => <h3>No Match</h3>} />

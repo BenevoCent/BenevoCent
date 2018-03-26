@@ -1,23 +1,5 @@
-# Auth with React Router V4 and Firebase V3
-This is an example repo for authenticating with Firebase and React Router using Material-UI.
+# BenevoCent - Charitable donation app
 
-*Using React 16.1.1, React Router 4, and Firebase 4.6.0*
+ User’s credit card transactions are rounded up to the nearest dollar and the remainder is donated to a charity of their choice. There is a visual feedback component where the user’s total charitable donations correlate to the size of a virtual “garden”. Multiple users can group up together to contribute to a shared community garden. Gardens can represent specific community interests such as: environmental protection, humanitarian causes, medical research, etc.
 
-### [Live Demo](https://guilherme6191.github.io/react-router-firebase-auth-material-ui/#/)
-
-#### Features:
-* Protected Routes with React Router
-* Register new users with Firebase
-* Add new users to ```/users``` in your Firebase Firestore database
-* Login/Logout Functionality
-* Material UI
-* Bootstrap v4 for some utilities via CDN ** should be included via yarn/npm or removed
-
-#### Instructions:
-* Swap out the firebase config in ```config/constants``` with your own
-* ```npm install```
-* ```npm start```
-* Visit ```localhost:3000```
-
-#### Others:
-It's basically [react-router-firebase-auth](https://github.com/tylermcginnis/react-router-firebase-auth) with [Material-UI](https://github.com/callemall/material-ui) and [Firebase/Firestore](https://firebase.google.com/products/firestore/)
+live demo at https://benevocent.firebaseapp.com

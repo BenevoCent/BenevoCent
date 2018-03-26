@@ -20,6 +20,8 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 5vh;
+  margin-top: 5vh;
 }
 
 #carousel-summary > img {
@@ -39,6 +41,10 @@ body {
 
 #account-info {
   padding-left: 20px;
+}
+
+.monthButton {
+  text-transform: capitalize
 }
 
 /* .garden-grid {
