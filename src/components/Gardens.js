@@ -206,6 +206,51 @@ export default class Gardens extends Component {
     })
   }
 
+  monthInWords(str) {
+    const year = str.slice(0,4)
+    const monthNums = str.slice(5)
+    let month = "January"
+    switch (monthNums) {
+      case "02":
+        month = "February"
+        break
+      case "03":
+        month = "March"
+        break
+      case "04":
+        month = "April"
+        break
+      case "05":
+        month = "May"
+        break
+      case "06":
+        month = "June"
+        break
+      case "07":
+        month = "July"
+        break
+      case "08":
+        month = "August"
+        break
+      case "09":
+        month = "September"
+        break
+      case "10":
+        month = "October"
+        break
+      case "11":
+        month = "November"
+        break
+      case "12":
+        month = "December"
+        break
+      default:
+        month = "January"
+        break
+    }
+    return month + " " + year
+  }
+
   componentDidMount() {
     this.getGardens();
     this.getSelectedSeedling();
@@ -217,8 +262,9 @@ export default class Gardens extends Component {
       <div>
         <div style={{width: '100vw'}}>
           <RaisedButton
+            labelStyle={{textTransform: 'lowercase capitalize', fontSize: "16px"}}
             onClick={this.handleClick}
-            label={this.state.selectedMonthName}
+            label={this.monthInWords(this.state.selectedMonthName)}
             style={{marginLeft: '20px'}}
           />
         </div>
@@ -234,7 +280,7 @@ export default class Gardens extends Component {
             this.state.monthlyDonations.map(elem => {
             return (
               <MenuItem
-                key={elem.month} primaryText={elem.month} onClick={ () => {
+                key={elem.month} primaryText={this.monthInWords(elem.month)} onClick={ () => {
                 this.selectMonth(elem.month, elem.monthlyDonation);
                 this.getPlots(elem.month, this.props.user.uid)
                 this.handleRequestClose();
