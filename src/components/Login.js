@@ -3,6 +3,7 @@ import { login, resetPassword, googleLogin } from '../helpers/auth';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import GoogleButton from 'react-google-button'
 
 function setErrorMsg(error) {
   return {
@@ -75,10 +76,7 @@ export default class Login extends Component {
           type="submit"
         />
         <br />
-        <RaisedButton
-          label="Login with Google"
-          primary={true}
-          style={style.raisedBtn}
+        <GoogleButton
           onClick={googleLogin}
         />
       </form>
