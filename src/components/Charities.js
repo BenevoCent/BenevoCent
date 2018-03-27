@@ -3,12 +3,15 @@ import React, { Component } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
+import SearchBar from 'material-ui-search-bar';
 import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui-icons/CheckBox';
 import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
-import SearchBar from 'material-ui-search-bar';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import Slider from 'material-ui/Slider';
 
 import { db } from '../config/constants';
 
@@ -229,12 +232,54 @@ export default class Charities extends Component {
             </GridList>
           </div>
           <div style={styles.root}>
-            <h1>Split</h1>
+            {/* <h1>Split</h1> */}
             {Object.keys(this.state.namedCharities).map(key => {
+              let sliderVal = this.state.namedCharities[key]*100
               return (
-                <li key={key}>
-                  {key} {this.state.namedCharities[key]}{' '}
-                </li>
+                  <Card 
+                    key={key} 
+                    style={{width: '90vw', marginBottom: '3vh'}}>
+                    children={
+                      <div style={{
+                          // display: 'flex',
+                          // justifyContent: 'center',
+                          // alignItems: 'center',
+                          // flexDirection: 'column'
+                        }}>
+                        <div style={{margin: '3vh'}}>{key}</div>
+                        <div style={{margin: '3vh'}}>{this.state.namedCharities[key]*100}% </div> 
+                        <Slider 
+                          min={0}
+                          max={100}
+                          step={10}
+                          style={{margin: '3vh'}}
+                          // onChange={}
+                        />
+                      </div>
+                    }
+                  {/* <CardHeader
+                    title={key}
+                    subtitle={`${sliderVal}%`}
+                    
+                    // actAsExpander={true}
+                    // showExpandableButton={true}
+                  />
+                  <CardActions  style={{padding: '0'}}>
+                    <Slider 
+                    
+                      min={0}
+                      max={100}
+                      step={10}
+                      // onChange={}
+                    />
+                  </CardActions> */}
+                  {/* <CardText expandable={true}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                    Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                    Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                  </CardText> */}
+                </Card>
               );
             })}
           </div>
