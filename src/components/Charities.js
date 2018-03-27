@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 
 import { Tabs, Tab } from 'material-ui/Tabs';
-import SwipeableViews from 'react-swipeable-views';
 
+import SearchBar from 'material-ui-search-bar';
 import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui-icons/CheckBox';
 import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
-import SearchBar from 'material-ui-search-bar';
+import { Card } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import Slider from 'material-ui/Slider';
 
 import { db } from '../config/constants';
 
@@ -68,22 +70,22 @@ export default class Charities extends Component {
       .get()
       .then(doc => doc.data())
       .then(selectedCharities => {
-        this.setState({ selectedCharities: selectedCharities })
+        this.setState({ selectedCharities: selectedCharities });
         return Promise.all(
-          Object.keys(selectedCharities)
-            .map(
-              key => db.collection('charities')
-                .doc(key)
-                .get()
-                .then(doc => doc.data().name)
-                .then(name => ({
-                  [name]: selectedCharities[key]
-                }))
-            )
-        )
+          Object.keys(selectedCharities).map(key =>
+            db
+              .collection('charities')
+              .doc(key)
+              .get()
+              .then(doc => doc.data().name)
+              .then(name => ({
+                [name]: selectedCharities[key]
+              }))
+          )
+        );
       })
       .then(entries => Object.assign(...entries))
-      .then((namedCharities) => this.setState({ namedCharities: namedCharities }))
+      .then(namedCharities => this.setState({ namedCharities: namedCharities }))
       .catch(err => {
         console.log('Error getting documents', err);
       });
@@ -114,131 +116,149 @@ export default class Charities extends Component {
     return (
       <div style={{ width: '100vw' }}>
         <Tabs onChange={this.tabChange} value={this.state.tabIndex}>
-          <Tab label="Organizations" value={0} />
-          <Tab label="Split Donations" value={1} />
-        </Tabs>
-        <SwipeableViews
-          index={this.state.tabIndex}
-          onChangeIndex={this.tabChange}
-        >
-          <div style={styles.root}>
-            <SearchBar
-              onChange={this.handleChange}
-              onRequestSearch={() => console.log('onRequestSearch')}
-              style={{
-                margin: '3',
-                marginBottom: '5px',
-                width: '90vw'
-              }}
-            />
-            <GridList style={styles.gridList} cols={2}>
-              {
-                updatedCharities.map(charity => {
+          <Tab label="Organizations" value={0}>
+            <div style={styles.root}>
+              <SearchBar
+                onChange={this.handleChange}
+                onRequestSearch={() => console.log('onRequestSearch')}
+                style={{
+                  margin: '3',
+                  marginBottom: '5px',
+                  width: '90vw'
+                }}
+              />
+              <GridList style={styles.gridList} cols={1}>
+                {updatedCharities.map(charity => {
                   return (
                     <GridTile
                       key={charity.name}
-                      title={charity.name}
-                      subtitle={
-                        <span>
-                          <b>{charity.tag}</b>
-                        </span>
-                      }
+                      title={charity.tag}
                       actionIcon={
-                        this.state.namedCharities.hasOwnProperty(charity.name) ? (
+                        this.state.namedCharities.hasOwnProperty(
+                          charity.name
+                        ) ? (
                           <IconButton
                             onClick={() => {
-                              console.log('clicked: ', charity.name, charity.uid)
-
                               let newNamedCharities = this.state.namedCharities;
-                              delete newNamedCharities[charity.name]
-                              this.setState({ namedCharities: newNamedCharities })
+                              delete newNamedCharities[charity.name];
+                              this.setState({
+                                namedCharities: newNamedCharities
+                              });
 
-                              let newSelectedCharities = this.state.selectedCharities;
-                              delete newSelectedCharities[charity.uid]
-                              this.setState({ selectedCharities: newSelectedCharities })
-
-                              // console.log("this.state", this.state)
-
+                              let newSelectedCharities = this.state
+                                .selectedCharities;
+                              delete newSelectedCharities[charity.uid];
+                              this.setState({
+                                selectedCharities: newSelectedCharities
+                              });
                               db
                                 .collection('distributions')
                                 .doc(this.props.user.uid)
-                                .set(
-                                  this.state.selectedCharities,
-                              )
-                                .then(function () {
+                                .set(this.state.selectedCharities)
+                                .then(function() {
                                   console.log('Document successfully written!');
                                 })
-                                .catch(function (error) {
-                                  console.error('Error writing document: ', error);
+                                .catch(function(error) {
+                                  console.error(
+                                    'Error writing document: ',
+                                    error
+                                  );
                                 });
                             }}
                           >
                             <CheckBox color="rgb(255, 255, 255)" />
                           </IconButton>
                         ) : (
-                            <IconButton
-                              onClick={() => {
-                                console.log('clicked: ', charity.name, charity.uid)
+                          <IconButton
+                            onClick={() => {
+                              let newNamedCharities = this.state.namedCharities;
+                              newNamedCharities[charity.name] = 0;
+                              this.setState({
+                                namedCharities: newNamedCharities
+                              });
 
-                                let newNamedCharities = this.state.namedCharities;
-                                newNamedCharities[charity.name] = 0;
-                                this.setState({ namedCharities: newNamedCharities })
-
-                                let newSelectedCharities = this.state.selectedCharities;
-                                newSelectedCharities[charity.uid] = 0;
-                                this.setState({ selectedCharities: newSelectedCharities })
-
-                                // console.log("this.state", this.state)
-
-                                db
-                                  .collection('distributions')
-                                  .doc(this.props.user.uid)
-                                  .set(
-                                    this.state.selectedCharities,
-                                  // { merge: true }
+                              let newSelectedCharities = this.state
+                                .selectedCharities;
+                              newSelectedCharities[charity.uid] = 0;
+                              this.setState({
+                                selectedCharities: newSelectedCharities
+                              });
+                              db
+                                .collection('distributions')
+                                .doc(this.props.user.uid)
+                                .set(
+                                  this.state.selectedCharities
                                 )
-                                  .then(function () {
-                                    console.log('Document successfully written!');
-                                  })
-                                  .catch(function (error) {
-                                    console.error('Error writing document: ', error);
-                                  });
-                              }}
-                            >
-                              <CheckBoxOutlineBlank color="rgb(255, 255, 255)" />
-                            </IconButton>
-                          )
+                                .then(function() {
+                                  console.log('Document successfully written!');
+                                })
+                                .catch(function(error) {
+                                  console.error(
+                                    'Error writing document: ',
+                                    error
+                                  );
+                                });
+                            }}
+                          >
+                            <CheckBoxOutlineBlank color="rgb(255, 255, 255)" />
+                          </IconButton>
+                        )
                       }
                       style={{
                         display: 'flex',
-                        justifyContent: 'center',
                         alignItems: 'center'
-                        // flexDirection: 'column',
                       }}
                       titleStyle={styles.titleStyle}
                       titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
                     >
-                      <img src={charity.img} alt="charity" />
+                      <img
+                        style={{ paddingLeft: '15px' }}
+                        src={charity.img}
+                        alt="charity"
+                      />
                       <br />
-                      <a href={charity.url} target="_blank">
-                        Main Website
-                    </a>
+                      <a
+                        style={{ paddingLeft: '15px', paddingRight: '15px' }}
+                        href={charity.url}
+                        target="_blank"
+                      >
+                        {charity.name}
+                      </a>
                     </GridTile>
                   );
                 })}
-            </GridList>
-          </div>
-          <div style={styles.root}>
-            <h1>Split</h1>
-            {Object.keys(this.state.namedCharities).map(key => {
-              return (
-                <li key={key}>
-                  {key} {this.state.namedCharities[key]}{' '}
-                </li>
-              );
-            })}
-          </div>
-        </SwipeableViews>
+              </GridList>
+            </div>
+          </Tab>
+          <Tab label="Split Donations" value={1}>
+            <div style={styles.root}>
+              {Object.keys(this.state.namedCharities).map(key => {
+                let sliderVal = this.state.namedCharities[key] * 100;
+                return (
+                  <Card
+                    key={key}
+                    style={{ width: '90vw', marginBottom: '3vh' }}
+                  >
+                    children={
+                      <div>
+                        <div style={{ margin: '3vh' }}>{key}</div>
+                        <div style={{ margin: '3vh' }}>
+                          {this.state.namedCharities[key] * 100}%{' '}
+                        </div>
+                        <Slider
+                          min={0}
+                          max={100}
+                          step={10}
+                          style={{ margin: '3vh' }}
+                        />
+                      </div>
+                    }
+                  </Card>
+                );
+              })}
+            </div>
+          </Tab>
+        </Tabs>
       </div>
     );
   }
