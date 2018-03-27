@@ -3,13 +3,8 @@ import React from 'react';
 import { db } from "../config/constants";
 import {CardElement, CardNumberElement, CardExpiryElement, CardCVCElement, PostalCodeElement, PaymentRequestButtonElement} from 'react-stripe-elements';
 import {injectStripe} from 'react-stripe-elements';
+import axios from 'axios';
 
-
-let formElementStyle = {
-  style: {
-
-  }
-}
 
 class CardSection extends React.Component {
 
@@ -29,12 +24,22 @@ class CardSection extends React.Component {
     console.log('in the handleSubmit cardSection')
 
     ev.preventDefault();
+    ev.persist();
+    console.log('user is', this.props.user)
+    let body = {
+      amount: ev.target.amount.value,
+      charityId: ev.target.charity.value,
+      charityName: ev.target.charity.name,
+      userId: this.props.user.uid
+    }
     this.props.stripe.createToken({name: 'Manny Mapsagna'}).then(({token}) => {
       console.log('Received Stripe token:', token);
-      //console.log('amount', ev.target.amount);
-      //console.log('charity', ev.target.charity);
+      console.log('amount', ev.target.amount.value);
+      console.log('charity', ev.target.charity.value);
+      body.token = token;
+      console.log('front end token is', token);
+      axios.post('http://localhost:8000/stripeTransaction', body);
 
-      console.log('');
     });
   }
 
@@ -79,7 +84,7 @@ class CardSection extends React.Component {
                 <select name='charity'>
                     {console.log('the charities', this.charities)}
                     {this.state.charities && this.state.charities.map((charity) => (          
-                        <option value={charity.uid}>{charity.name}</option>     
+                        <option key={charity.name} value={charity.uid} name={charity.name}>{charity.name}</option>     
                     ))}
                 </select>
             </label>
@@ -110,9 +115,7 @@ class CardSection extends React.Component {
             <input type="submit" />
           </div>
         </form>
-        {/*<PaymentRequestButtonElement />*/}
       </div>
-      
     );
   }
 };
