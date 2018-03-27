@@ -4,6 +4,8 @@ const containerStyle = {
   // container: {
     height: '60vw',
     width: '60vw',
+    maxWidth: '620px',
+    maxHeight: '620px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -77,7 +79,7 @@ export default class GardenGridV2 extends Component {
   trueeight = () => {
     this.setState({ eight: true });
   }
-  
+
   falsezero = () => {
     this.setState({ zero: false });
   }
@@ -105,7 +107,7 @@ export default class GardenGridV2 extends Component {
   falseeight = () => {
     this.setState({ eight: false });
   }
-  
+
 
   render() {
 
@@ -142,6 +144,8 @@ export default class GardenGridV2 extends Component {
     let normalstyle = {
       height: '17.33vw',
       width: '17.33vw',
+      maxHeight: '155px',
+      maxWidth: '155px',
       padding: '1vw',
       margin: '1vw',
       backgroundColor: '#7c684c',
@@ -152,6 +156,8 @@ export default class GardenGridV2 extends Component {
     let hoverstyle = {
       height: '17.33vw',
       width: '17.33vw',
+      maxHeight: '155px',
+      maxWidth: '155px',
       padding: '1vw',
       margin: '1vw',
       backgroundColor: '#7c684c',
