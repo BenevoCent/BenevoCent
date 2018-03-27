@@ -121,13 +121,11 @@ export default class Gardens extends Component {
       .then(snapshot => {
         snapshot.forEach(doc => {
           gardens.push(doc.data());
-          // console.log(doc.id, "=>", doc.data());
         });
         return gardens;
       })
       .then(gardens => {
         this.setState({ gardens: gardens });
-        // console.log("gardens", gardens);
       })
       .catch(err => {
         console.log('Error getting documents', err);
@@ -146,7 +144,6 @@ export default class Gardens extends Component {
             month: doc.id,
             monthlyDonation: doc.data().totalDonations
           });
-          // console.log(doc.id, "=>", doc.data());
         });
         return monthlyDonations;
       })
@@ -156,10 +153,8 @@ export default class Gardens extends Component {
           selectedMonthName: monthlyDonations[0].month,
           selectedMonthDonation: monthlyDonations[0].monthlyDonation,
         });
-        // console.log('this.state', this.state);
       })
       .then( () => {
-        // console.log('month', this.state.selectedMonthName, this.props.user.uid)
         this.getPlots(this.state.selectedMonthName, this.props.user.uid)
       })
   }
@@ -179,10 +174,11 @@ export default class Gardens extends Component {
   };
   getPlots = (month, uid) => {
     let plots = [];
-    // console.log('uid', uid, 'month', month)
-    db.collection('gardens').doc(uid)
-    .collection('user_gardens')
-.doc(month)
+    db
+      .collection('gardens')
+      .doc(uid)
+      .collection('user_gardens')
+      .doc(month)
       .get()
       .then(doc => {
         let arr = Object.keys(doc.data())

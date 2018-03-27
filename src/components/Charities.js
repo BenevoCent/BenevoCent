@@ -6,6 +6,7 @@ import CheckBox from 'material-ui-icons/CheckBox';
 // import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
 import SearchBar from 'material-ui-search-bar'
+import { Link } from 'react-router-dom';
 
 import { db } from '../config/constants';
 
@@ -84,7 +85,7 @@ export default class Charities extends Component {
           {updatedCharities.map((charity) => (
             <GridTile
               key={charity.name}
-              title={charity.name}
+              title={<Link to={`/orgs/${charity.name.trim().replace(/ /g, "_")}`}>{charity.name}</Link>}
               subtitle={<span><b>{charity.tag}</b></span>}
               actionIcon={
                 <IconButton>
