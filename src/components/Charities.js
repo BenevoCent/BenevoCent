@@ -55,9 +55,7 @@ export default class Charities extends Component {
       })
       .then(charities => {
         this.setState({ charities });
-        // console.log('charities', charities);
       })
-      // .then( () => this.getSelectedCharities())
       .catch(err => {
         console.log('Error getting documents', err);
       });
@@ -69,8 +67,9 @@ export default class Charities extends Component {
       .doc(this.props.user.uid)
       .get()
       .then(doc => doc.data())
-      .then(selectedCharities =>
-        Promise.all(
+      .then(selectedCharities => {
+        this.setState({selectedCharities: selectedCharities})
+        return Promise.all(
           Object.keys(selectedCharities)
           .map(
             key => db.collection('charities')
@@ -82,7 +81,7 @@ export default class Charities extends Component {
               }))
           )
         )
-      )
+      })
       .then(entries => Object.assign(...entries))
       .then((namedCharities) => this.setState({ namedCharities: namedCharities }))
       .catch(err => {
@@ -107,17 +106,11 @@ export default class Charities extends Component {
     this.getCharities();
     this.getSelectedCharities();
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.namedCharities) this.setState({namedCharities: nextProps.namedCharities})
-  // }
-
   render() {
     // console.log('rendering');
     const updatedCharities = this.state.charities.filter(item =>
       item.name.toLowerCase().match(this.state.searchVal.toLowerCase())
     );
-    // console.log('this.state.namedCharities', this.state.namedCharities);
     return (
       <div style={{ width: '100vw' }}>
         <Tabs onChange={this.tabChange} value={this.state.tabIndex}>
@@ -139,15 +132,8 @@ export default class Charities extends Component {
               }}
             />
             <GridList style={styles.gridList} cols={2}>
-              { this.state.namedCharities && updatedCharities.map(charity => {
-                // console.log(
-                //   this.state.namedCharities
-                // );
-                // console.log(
-                //   charity.name,
-                //   this.state.namedCharities.hasOwnProperty(charity.name),
-                //   this.state.namedCharities
-                // );
+              {
+              updatedCharities.map(charity => {
                 return (
                   <GridTile
                     key={charity.name}
@@ -159,11 +145,66 @@ export default class Charities extends Component {
                     }
                     actionIcon={
                       this.state.namedCharities.hasOwnProperty(charity.name) ? (
-                        <IconButton>
+                        <IconButton
+                          onClick={() => {
+                            console.log('clicked: ', charity.name, charity.uid)
+
+                            let newNamedCharities = this.state.namedCharities;
+                            delete newNamedCharities[charity.name]
+                            this.setState({namedCharities: newNamedCharities})
+
+                            let newSelectedCharities = this.state.selectedCharities;
+                            delete newSelectedCharities[charity.uid]
+                            this.setState({selectedCharities: newSelectedCharities})
+
+                            console.log("this.state", this.state)
+
+                            db
+                              .collection('distributions')
+                              .doc(this.props.user.uid)
+                              .set(
+                                this.state.selectedCharities,
+                              )
+                              .then(function() {
+                                console.log('Document successfully written!');
+                              })
+                              .catch(function(error) {
+                                console.error('Error writing document: ', error);
+                              });
+                          }}
+                        >
                           <CheckBox color="rgb(255, 255, 255)" />
                         </IconButton>
                       ) : (
-                        <IconButton>
+                        <IconButton
+                          onClick={() => {
+                            console.log('clicked: ', charity.name, charity.uid)
+
+                            let newNamedCharities = this.state.namedCharities;
+                            newNamedCharities[charity.name] = 0;
+                            this.setState({namedCharities: newNamedCharities})
+
+                            let newSelectedCharities = this.state.selectedCharities;
+                            newSelectedCharities[charity.uid] = 0;
+                            this.setState({selectedCharities: newSelectedCharities})
+
+                            // console.log("this.state", this.state)
+
+                            db
+                              .collection('distributions')
+                              .doc(this.props.user.uid)
+                              .set(
+                                this.state.selectedCharities,
+                                // { merge: true }
+                              )
+                              .then(function() {
+                                console.log('Document successfully written!');
+                              })
+                              .catch(function(error) {
+                                console.error('Error writing document: ', error);
+                              });
+                          }}
+                        >
                           <CheckBoxOutlineBlank color="rgb(255, 255, 255)" />
                         </IconButton>
                       )
