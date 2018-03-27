@@ -36,39 +36,39 @@ let style = {
 export class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      charities: []
-    };
+    // this.state = {
+    //   charities: []
+    // };
     
-    this.getCharities = this.getCharities.bind(this);
+    //this.getCharities = this.getCharities.bind(this);
   }
 
 
 
-  getCharities() {
-    let charities = [];
-    db
-    .collection('charities')
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        charities.push(doc.data());
-        console.log(doc.id, '=>', doc.data());
-      });
-      return charities;
-    })
-    .then(charities => {
-      this.setState({ charities });
-      console.log('charities', charities);
-    })
-    .catch(err => {
-      console.log('Error getting documents', err);
-    });
-  }
+//   getCharities() {
+//     let charities = [];
+//     db
+//     .collection('charities')
+//     .get()
+//     .then(snapshot => {
+//       snapshot.forEach(doc => {
+//         charities.push(doc.data());
+//         console.log(doc.id, '=>', doc.data());
+//       });
+//       return charities;
+//     })
+//     .then(charities => {
+//       this.setState({ charities });
+//       console.log('charities', charities);
+//     })
+//     .catch(err => {
+//       console.log('Error getting documents', err);
+//     });
+//   }
 
-  componentDidMount() {
-    this.getCharities();
-  }
+//   componentDidMount() {
+//     this.getCharities();
+//   }
 
   render() {
       console.log('in renderer', this.charities);
@@ -77,24 +77,9 @@ export class CheckoutForm extends Component {
         <div style={formStyle}>
             <h3>Lump Donation</h3>
             <p>Here you can make a lump donation to any charity of your choosing</p>
-            <label>
-                Donation Amount:
-                <input type='number' min='1' />
-            </label>
-            <label>
-                Charity:
-                <select>
-                    {console.log('the charities', this.charities)}
-                    {this.state.charities && this.state.charities.map((charity) => (          
-                        <option value={charity.uid}>{charity.name}</option>     
-                    ))}
-                </select>
-            </label>
-            <form onSubmit={this.handleSubmit}>
+            
                 {/*<AddressSection />*/}
                 <CardSection />
-                <button>Confirm order</button>
-            </form> 
         </div>
     );
   }
