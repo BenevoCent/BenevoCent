@@ -202,7 +202,7 @@ export default class GardenGridV2 extends Component {
             {gardenPlots[7] ? <img src={gardenPlots[7]} alt="cell" /> : null}
           </div>
           <div className="cell" style={eightstyle} onMouseEnter={this.trueeight} onMouseLeave={this.falseeight}>
-            {gardenPlots[0] ? <img src={gardenPlots[8]} alt="cell" /> : null}
+            {gardenPlots[8] ? <img src={gardenPlots[8]} alt="cell" /> : null}
           </div>
         </div>
       </div>

@@ -21,6 +21,7 @@ export default class SingleCharity extends Component {
       doners: [],
       plots: [],
       names: [],
+      amount: [],
     };
   }
 
@@ -47,21 +48,23 @@ export default class SingleCharity extends Component {
 
   getTopDoners() {
     let doners = [];
+    let amount = [];
     let allUserDonations = db.collection('donationsToCharities')
       .doc(this.state.charity.uid)
       .collection('donationsToCharity');
 
-    allUserDonations.orderBy('totalDonations')
+    allUserDonations.orderBy('totalDonations', 'desc')
       .limit(9)
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
           doners.push(doc.data());
+          amount.push(doc.data().totalDonations);
         });
         return doners;
       })
       .then(doners => {
-        this.setState({ doners });
+        this.setState({ doners, amount });
         this.getTopDonerInfo();
       })
       .catch(err => {
@@ -70,14 +73,15 @@ export default class SingleCharity extends Component {
   }
 
   getTopDonerInfo(){
-    let plots = [];
+    let plots = [null, null, null, null, null, null, null, null, null];
     let names = [];
-    this.state.doners.map(doner => {
+    this.state.doners.map((doner, idx) => {
       db.collection('users')
         .doc(doner.uid)
         .get()
         .then(user => {
-          plots.push(user.data().selectedSeedling);
+          console.log('idx', idx);
+          plots[idx] = user.data().selectedSeedling;
           names.push(user.data().displayName);
         })
         .then(() => this.setState({ plots, names }))
@@ -115,46 +119,56 @@ export default class SingleCharity extends Component {
             <Table>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow>
-                  <TableHeaderColumn>ID</TableHeaderColumn>
+                  <TableHeaderColumn>Rank</TableHeaderColumn>
                   <TableHeaderColumn>Name</TableHeaderColumn>
+                  <TableHeaderColumn>Amount ($)</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody displayRowCheckbox={false}>
                 <TableRow>
                   <TableRowColumn>1</TableRowColumn>
                   <TableRowColumn>{this.state.names[0]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[0]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>2</TableRowColumn>
                   <TableRowColumn>{this.state.names[1]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[1]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>3</TableRowColumn>
                   <TableRowColumn>{this.state.names[2]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[2]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>4</TableRowColumn>
                   <TableRowColumn>{this.state.names[3]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[3]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>5</TableRowColumn>
                   <TableRowColumn>{this.state.names[4]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[4]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>6</TableRowColumn>
                   <TableRowColumn>{this.state.names[5]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[5]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>7</TableRowColumn>
                   <TableRowColumn>{this.state.names[6]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[6]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>8</TableRowColumn>
                   <TableRowColumn>{this.state.names[7]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[7]}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>9</TableRowColumn>
                   <TableRowColumn>{this.state.names[8]}</TableRowColumn>
+                  <TableRowColumn>{this.state.amount[8]}</TableRowColumn>
                 </TableRow>
               </TableBody>
             </Table>
