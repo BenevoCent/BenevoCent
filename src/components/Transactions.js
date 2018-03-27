@@ -24,13 +24,13 @@ export default class Transactions extends Component {
       .then(snapshot => {
         snapshot.forEach(doc => {
           transactions.push(doc.data());
-          console.log(doc.id, "=>", doc.data());
+          // console.log(doc.id, "=>", doc.data());
         });
         return transactions;
       })
       .then(transactions => {
         this.setState({ transactions: transactions });
-        console.log(transactions);
+        // console.log(transactions);
       })
       .catch(err => {
         console.log("Error getting documents", err);
@@ -43,8 +43,8 @@ export default class Transactions extends Component {
 
   render() {
     return (
-      <div>
-        <h1 style={{ paddingLeft: "20px" }}>Transactions</h1>
+      <div style={{marginTop: "1rem"}}>
+        <h3 style={{ paddingLeft: "20px" }}>Transactions</h3>
         <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>

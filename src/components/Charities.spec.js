@@ -24,7 +24,7 @@ it('renders without crashing', (done) => {
   const div = document.createElement('div')
   ReactDOM.render(
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-      <Charities />
+      <Charities user={{ uid: "123" }}/>
     </MuiThemeProvider>, div)
   setTimeout(() => done());
 })

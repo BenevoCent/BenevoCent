@@ -95,8 +95,8 @@ export default class Account extends Component {
       .then(snapshot => {
         const donationsObject = snapshot.data()
         const orgs = Object.keys(donationsObject)
-        console.log("donations", snapshot.data())
-        console.log(orgs)
+        // console.log("donations", snapshot.data())
+        // console.log(orgs)
         orgs.forEach(org => {
           db.collection("charities").doc(org)
             .get()
@@ -117,18 +117,18 @@ export default class Account extends Component {
     // let userId = this.props.user.uid;
     const userAccounts = this.state.userAccounts;
     const userDonations = this.state.userDonations;
-    console.log(userDonations)
+    // console.log(userDonations)
 
     return (
-      <div id="account-info">
+      <div id="account-info" style={{marginTop: "1rem"}}>
         <h3>Your Past Donations</h3>
         <br />
         <ul style={{ listStyleType: "none", padding: "0" }}>
-          {console.log('userDonations', userDonations)}
+          {/* {console.log('userDonations', userDonations)} */}
           {Object.keys(userDonations).length > 0
             ? Object.keys(userDonations).map(key => (
               <div key={key}>
-                {console.log(key)}
+                {/* {console.log(key)} */}
                 <li>
                   {key}
                 </li>
