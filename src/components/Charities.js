@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui-icons/CheckBox';
 import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
+import { Link } from 'react-router-dom';
 import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
@@ -217,13 +218,7 @@ export default class Charities extends Component {
                         alt="charity"
                       />
                       <br />
-                      <a
-                        style={{ paddingLeft: '15px', paddingRight: '15px' }}
-                        href={charity.url}
-                        target="_blank"
-                      >
-                        {charity.name}
-                      </a>
+                      <Link to={`/orgs/${charity.name.trim().replace(/ /g, "_")}`}>{charity.name}</Link>
                     </GridTile>
                   );
                 })}

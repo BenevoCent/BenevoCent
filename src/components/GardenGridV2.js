@@ -77,7 +77,7 @@ export default class GardenGridV2 extends Component {
   trueeight = () => {
     this.setState({ eight: true });
   }
-  
+
   falsezero = () => {
     this.setState({ zero: false });
   }
@@ -105,7 +105,7 @@ export default class GardenGridV2 extends Component {
   falseeight = () => {
     this.setState({ eight: false });
   }
-  
+
 
   render() {
 
@@ -175,7 +175,7 @@ export default class GardenGridV2 extends Component {
 
     return (
       <div id="carousel-summary">
-        <h3>${this.props.monthlyDonation}</h3>
+        <h3>Total Donations: ${this.props.monthlyDonation}</h3>
         <div className="container" style={containerStyle}>
           <div className="cell" style={zerostyle} onMouseEnter={this.truezero} onMouseLeave={this.falsezero}>
             {gardenPlots[0] ? <img src={gardenPlots[0]} alt="cell" /> : null}
