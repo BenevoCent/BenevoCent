@@ -55,7 +55,7 @@ export default class Charities extends Component {
       })
       .then(charities => {
         this.setState({ charities });
-        console.log('charities', charities);
+        // console.log('charities', charities);
       })
       // .then( () => this.getSelectedCharities())
       .catch(err => {
@@ -97,7 +97,7 @@ export default class Charities extends Component {
   };
 
   handleChange = evt => {
-    console.log(evt);
+    // console.log(evt);
     this.setState({
       searchVal: evt
     });
@@ -113,11 +113,11 @@ export default class Charities extends Component {
   // }
 
   render() {
-    console.log('rendering');
+    // console.log('rendering');
     const updatedCharities = this.state.charities.filter(item =>
       item.name.toLowerCase().match(this.state.searchVal.toLowerCase())
     );
-    console.log('this.state.namedCharities', this.state.namedCharities);
+    // console.log('this.state.namedCharities', this.state.namedCharities);
     return (
       <div style={{ width: '100vw' }}>
         <Tabs onChange={this.tabChange} value={this.state.tabIndex}>
@@ -143,11 +143,11 @@ export default class Charities extends Component {
                 // console.log(
                 //   this.state.namedCharities
                 // );
-                console.log(
-                  charity.name,
-                  this.state.namedCharities.hasOwnProperty(charity.name),
-                  this.state.namedCharities
-                );
+                // console.log(
+                //   charity.name,
+                //   this.state.namedCharities.hasOwnProperty(charity.name),
+                //   this.state.namedCharities
+                // );
                 return (
                   <GridTile
                     key={charity.name}
