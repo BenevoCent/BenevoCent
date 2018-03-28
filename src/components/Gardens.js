@@ -18,7 +18,6 @@ import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 import { db, firebaseAuth } from '../config/constants';
 
 
-
 function onGoogleLoginReload() {
   // Result from Redirect auth flow.
   return firebaseAuth().getRedirectResult()
@@ -29,13 +28,12 @@ function onGoogleLoginReload() {
 
       return db.runTransaction(async txn => {
         const userData = await txn.get(userRef);
-        if (!userData.exists)
-          return txn.set(userRef, {
+        if (!userData.exists) {return txn.set(userRef, {
             email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
             uid: user.uid
-          });
+          });}
       });
     })
     .catch(error => {
@@ -114,10 +112,14 @@ const tilesData = [
     title: 'strawberry'
   }
 ];
-// const monthNames = ["January", "February", "March", "April", "May", "June",
-// "July", "August", "September", "October", "November", "December"
-// ];
-// const d = new Date();
+
+  const date = new Date();
+  const monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+
+  function monthInWords(str) {
+    const [year, month] = str.split('-');
+    return monthNames[Number(month)] + ' ' + Number(year)
+  }
 
 export default class Gardens extends Component {
   constructor(props) {
@@ -159,8 +161,8 @@ export default class Gardens extends Component {
         });
         return gardens;
       })
-      .then(gardens => {
-        this.setState({ gardens: gardens });
+      .then(gardensResults => {
+        this.setState({ gardens: gardensResults });
       })
       .catch(err => {
         console.log('Error getting documents', err);
@@ -183,19 +185,18 @@ export default class Gardens extends Component {
         });
         return monthlyDonations;
       })
-      .then(monthlyDonations => {
-        if (monthlyDonations[0]) {
+      .then(res => {
+        if (res[0]) {
           this.setState({
-            monthlyDonations: monthlyDonations,
-            selectedMonthName: monthlyDonations[0].month,
-            selectedMonthDonation: monthlyDonations[0].monthlyDonation,
+            monthlyDonations: res,
+            selectedMonthName: res[res.length - 1].month,
+            selectedMonthDonation: res[res.length - 1].monthlyDonation,
           });
         }
         else {
           this.setState({
-            monthlyDonations: [],
-            selectedMonthName: "2018-03",
-            // ABOVE IS HARD CODED AND AWFUL - DO NOT DELETE THIS COMMENT UNTIL FIXED
+            monthlyDonations: [{month: `${date.getYear() + 1900}-${date.getMonth() + 1}`, monthlyDonation: 0 }],
+            selectedMonthName: `${date.getYear() + 1900}-${date.getMonth() + 1}`,
             selectedMonthDonation: 0,
           });
         }
@@ -233,8 +234,8 @@ export default class Gardens extends Component {
         arr.forEach(key => plots.push(doc.data()[key]))
         return plots;
       })
-      .then(plots => {
-        this.setState({ plots: plots });
+      .then(res => {
+        this.setState({ plots: res });
         // console.log('plots', plots);
         // console.log('this.state', this.state)
       })
@@ -244,58 +245,11 @@ export default class Gardens extends Component {
     // console.log('get the month ', month, 'get the uid ', uid )
   }
   selectMonth = (month, donation) => {
+    // console.log('month ', month, 'donation ', donation)
     this.setState({
       selectedMonthName: month,
       selectedMonthDonation: donation,
     })
-  }
-
-  monthInWords(str) {
-    const year = str.slice(0, 4)
-    const monthNums = str.slice(5)
-    let month = ""
-    switch (monthNums) {
-      case "01":
-        month = "January"
-        break
-      case "02":
-        month = "February"
-        break
-      case "03":
-        month = "March"
-        break
-      case "04":
-        month = "April"
-        break
-      case "05":
-        month = "May"
-        break
-      case "06":
-        month = "June"
-        break
-      case "07":
-        month = "July"
-        break
-      case "08":
-        month = "August"
-        break
-      case "09":
-        month = "September"
-        break
-      case "10":
-        month = "October"
-        break
-      case "11":
-        month = "November"
-        break
-      case "12":
-        month = "December"
-        break
-      default:
-        month = "No Donations"
-        break
-    }
-    return month + " " + year
   }
 
   componentDidMount() {
@@ -307,12 +261,12 @@ export default class Gardens extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "1rem" }}>
+      <div style={{ marginTop: '1rem' }}>
         <div style={{ width: '100vw' }}>
           <RaisedButton
-            labelStyle={{ textTransform: 'lowercase capitalize', fontSize: "16px" }}
+            labelStyle={{ textTransform: 'lowercase capitalize', fontSize: '16px' }}
             onClick={this.handleClick}
-            label={this.monthInWords(this.state.selectedMonthName)}
+            label={ monthInWords(this.state.selectedMonthName) !== 'undefined 0' ? (monthInWords(this.state.selectedMonthName)) : ('Loading...' ) }
             style={{ marginLeft: '20px' }}
           />
         </div>
@@ -326,9 +280,10 @@ export default class Gardens extends Component {
           <Menu>
             {
               this.state.monthlyDonations.map(elem => {
+                console.log('elem', elem)
                 return (
                   <MenuItem
-                    key={elem.month} primaryText={this.monthInWords(elem.month)} onClick={() => {
+                    key={elem.month} primaryText={monthInWords(elem.month)} onClick={() => {
                       this.selectMonth(elem.month, elem.monthlyDonation);
                       this.getPlots(elem.month, this.props.user.uid)
                       this.handleRequestClose();
@@ -338,12 +293,6 @@ export default class Gardens extends Component {
             }
           </Menu>
         </Popover>
-        {
-          // <GardenGrid
-          //   monthlyDonation={this.state.selectedMonthDonation}
-          //   plots={this.state.plots}
-          // />
-        }
         <GardenGridV2
           monthlyDonation={this.state.selectedMonthDonation}
           plots={this.state.plots}
