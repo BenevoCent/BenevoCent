@@ -3,6 +3,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import DonationCheckoutForm from './DonationCheckoutForm';
+import {Elements} from 'react-stripe-elements';
+
 
 import { db } from '../config/constants';
 const uuid = require('uuidv4');
@@ -16,6 +19,10 @@ export default class Account extends Component {
       userDonations: {},
       storeUser: {}
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
   handleChange = (event, index, bank) => {
@@ -239,6 +246,9 @@ export default class Account extends Component {
             style={{ margin: 0 }}
           />
         </form>
+        {/*<Elements>
+          <DonationCheckoutForm user={this.props.user} type={'subscription'} />
+        </Elements>*/}
       </div>
     );
   }

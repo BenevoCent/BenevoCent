@@ -184,14 +184,12 @@ export default class App extends Component {
                     user={this.state.user}
                   />
                   {/*recent add lumpSum route*/}
-                  <StripeProvider apiKey="pk_test_7NDxNFwTXZI5iGsCursLGPh2">
                     <PrivateRoute
                       authed={this.state.authed}
-                      path="/stripe"
+                      path="/directDonations"
                       component={DirectDonation}
                       user={this.state.user}
                     />
-                  </StripeProvider>
                   <Route render={() => <h3>No Match</h3>} />
                 </Switch>
               </div>

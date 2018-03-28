@@ -138,7 +138,8 @@ class DonationCardSection extends React.Component {
   render() {
     return (
       <div style={{left: "25%"}}>
-          <h3>Enter Card Info Here:</h3>
+        <h3>Direct Donation</h3>
+          
           <form onSubmit={this.handleSubmit}>  
             <NumberInput
               floatingLabelText="Donation Amount"
@@ -150,51 +151,44 @@ class DonationCardSection extends React.Component {
               strategy="allow"
               required
             />
-                <SelectField floatingLabelText="Charity" name="charity" value={this.state.charityUid} onChange={this.handleChange}>
-                  {this.state.charities && this.state.charities.map((charity) => { 
-                    return (<MenuItem key={charity.name} value={charity.uid} primaryText={charity.name}/> )    
-                  })}
-                </SelectField>                
-              <div>       
-                <div style={styles.inputField} >
-                  <label>
-                    Card Number
-                    <CardNumberElement />
-                  </label>
-                </div>
-              </div>
-              <div>
-              <div style={styles.inputField} >
-                <label>
-                  Expiration Date 
-                  <CardExpiryElement />               
-                </label>
-                </div>
-              </div>
-              <div>
-                <div style={styles.inputField} >
-                  <label>
-                    CVC             
-                    <CardCVCElement />     
-                  </label>
-                </div>
-              </div>
-              <div>
-                <div style={styles.inputField} >
-                  <label>
-                    Postal Code   
-                    <PostalCodeElement />              
-                  </label>
-                </div>
-              </div>
-              <RaisedButton
-                label="Submit"
-                primary={true}
-                type="submit"
-                style={{ margin: 12 }}
-              />
-              {/*<input type="submit" />*/}
-            
+            <SelectField floatingLabelText="Charity" name="charity" value={this.state.charityUid} onChange={this.handleChange}>
+              {this.state.charities && this.state.charities.map((charity) => { 
+                return (<MenuItem key={charity.name} value={charity.uid} primaryText={charity.name}/> )    
+              })}
+            </SelectField>  
+            <Card style={{width: "95vw", marginLeft: "auto", marginRight: "auto", marginTop: "2vh"}}>
+            <h3>Enter Card Info Here:</h3>              
+            <div style={styles.inputField} >
+              <label>
+                Card Number
+                <CardNumberElement />
+              </label>
+            </div>
+            <div style={styles.inputField} >
+              <label>
+                Expiration Date 
+                <CardExpiryElement />               
+              </label>
+            </div>
+            <div style={styles.inputField} >
+              <label>
+                CVC             
+                <CardCVCElement />     
+              </label>
+            </div>
+            <div style={styles.inputField} >
+              <label>
+                Postal Code   
+                <PostalCodeElement />              
+              </label>
+            </div>
+            </Card>
+            <RaisedButton
+              label="Submit"
+              primary={true}
+              type="submit"
+              style={{ margin: 12 }}
+            />            
           </form>
       </div>
     );
@@ -202,14 +196,3 @@ class DonationCardSection extends React.Component {
 };
 
 export default injectStripe(DonationCardSection);
-
-
-
-
-
- // <select name='charity' >
-                  //     {console.log('the charities', this.charities)}
-                  //     {this.state.charities && this.state.charities.map((charity) => (          
-                  //         <option key={charity.name} value={charity.uid} name={charity.name}>{charity.name}</option>     
-                  //     ))}
-                  // </select>
