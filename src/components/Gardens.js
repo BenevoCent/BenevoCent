@@ -27,7 +27,8 @@ const styles = {
     display: 'flex',
     flexWrap: 'nowrap',
     overflowX: 'auto',
-    width: '100vw'
+    width: '100vw',
+    marginTop: '30px'
   },
   titleStyle: {
     color: 'rgb(255, 255, 255)'
@@ -333,7 +334,7 @@ export default class Gardens extends Component {
                 titleStyle={styles.titleStyle}
                 titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
               >
-                <img src={tile.img} alt="tile" />
+                <img src={tile.img} alt="tile" style={{maxHeight: '180px'}} />
               </GridTile>
             ))}
           </GridList>

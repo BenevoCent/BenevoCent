@@ -3,6 +3,8 @@ import Carousel from "nuka-carousel";
 
 const style = {
   width: "100vw",
+  maxHeight: '500px',
+  maxWidth: '800px',
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -16,6 +18,8 @@ export default class Home extends Component {
         id="carousel-container"
         style={{
           width: "100vw",
+          maxHeight: '500px',
+          maxWidth: '800px',
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -38,11 +42,11 @@ export default class Home extends Component {
             <p style={{width: "85vw"}}>We round up your purchases to the nearest dollar and donate the change to a charity of your choice.</p>
           </div>
           <div className="carousel-summary" style={style}>
-            <img src="/svg/leaf.svg" alt="it's a leaf" style={{width: "70vw", padding:"25px"}}/>
+            <img src="/svg/leaf.svg" alt="it's a leaf" style={{maxHeight: '400px', width: "70vw", padding: "25px"}}/>
             <p style={{width: "85vw"}}>By donating, you grow your virtual garden!</p>
           </div>
           <div className="carousel-summary" style={style}>
-            <img src="/svg/leaves.svg" alt="it's leaves" style={{width: "70vw", padding:"25px"}}/>
+            <img src="/svg/leaves.svg" alt="it's leaves" style={{maxHeight: '400px', width: "70vw", padding:"25px"}}/>
             <p style={{width: "85vw"}}>Donate enough and you'll be featured in a charity's community garden!</p>
           </div>
         </Carousel>
