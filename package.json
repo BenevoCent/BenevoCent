@@ -4,10 +4,12 @@
   "private": true,
   "homepage": "https://benevocent.firebaseapp.com/",
   "dependencies": {
+    "axios": "^0.18.0",
     "firebase": "4.6.0",
     "gh-pages": "^1.1.0",
     "material-ui": "^0.19.4",
     "material-ui-icons": "^1.0.0-beta.36",
+    "material-ui-number-input": "^5.0.24",
     "material-ui-search-bar": "^0.4.1",
     "nuka-carousel": "^4.0.0",
     "react": "^16.1.1",
@@ -16,7 +18,10 @@
     "react-isometric-grid": "0.0.3",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "react-stripe-checkout": "^2.6.3",
+    "react-stripe-elements": "^1.6.0",
     "react-swipeable-views": "^0.12.13",
+    "stripe": "^5.6.1",
     "uuid": "^3.2.1",
     "uuidv4": "^1.0.0"
   },
