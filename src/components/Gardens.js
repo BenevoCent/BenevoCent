@@ -135,11 +135,6 @@ export default class Gardens extends Component {
     };
   }
   getSelectedSeedling() {
-    // if (this.props.user.uid) {
-    //   console.log('yay', this.props.user.uid);
-    // } else {
-    //   console.log('nay');
-    // }
     db.collection('users')
       .doc(this.props.user.uid)
       .get()
@@ -149,7 +144,7 @@ export default class Gardens extends Component {
       );
   }
   getGardens() {
-    var gardens = [];
+    let gardens = [];
     db
       .collection('gardens')
       .doc(this.props.user.uid)

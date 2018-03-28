@@ -1,6 +1,10 @@
 // Node Modules
+
+
 import React, { Component } from 'react';
 import { Route, HashRouter, Link, Redirect, Switch } from 'react-router-dom';
+import {StripeProvider} from 'react-stripe-elements';
+
 
 // Material UI
 import AppBar from 'material-ui/AppBar';
@@ -21,9 +25,11 @@ import Transactions from './Transactions';
 import Gardens from './Gardens';
 import Seedlings from './Seedlings';
 import Charities from './Charities';
+import SplashScreen from './SplashScreen';
 
 // Test
 import Test from './GardenGridV2';
+import DirectDonation from './DirectDonation';
 import SingleCharity from './SingleCharity';
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
@@ -97,19 +103,8 @@ export default class App extends Component {
 
 
     return this.state.loading === true ? (
-      <div
-        id="loading-container"
-        style={{
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CircularProgress size={80} thickness={5} />
-      </div>
-    ) : (
+      <SplashScreen />
+     ) : (
       <HashRouter>
         <div>
           <AppDrawer
@@ -145,14 +140,6 @@ export default class App extends Component {
                     path="/register"
                     component={Register}
                   />
-                  {
-                    // <PrivateRoute
-                    //   authed={this.state.authed}
-                    //   path="/dashboard"
-                    //   component={Dashboard}
-                    //   user={this.state.user}
-                    // />
-                  }
                   <PrivateRoute
                     authed={this.state.authed}
                     path="/account"
@@ -195,6 +182,15 @@ export default class App extends Component {
                     component={Test}
                     user={this.state.user}
                   />
+                  {/*recent add lumpSum route*/}
+                  <StripeProvider apiKey="pk_test_7NDxNFwTXZI5iGsCursLGPh2">
+                    <PrivateRoute
+                      authed={this.state.authed}
+                      path="/stripe"
+                      component={DirectDonation}
+                      user={this.state.user}
+                    />
+                  </StripeProvider>
                   <Route render={() => <h3>No Match</h3>} />
                 </Switch>
               </div>

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
-import Transactions from "./Transactions";
+import SingleCharity from "./SingleCharity";
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { shallow, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const muiTheme = getMuiTheme(
   {
@@ -27,7 +27,7 @@ const muiTheme = getMuiTheme(
 it('renders without crashing', () => {
   const div = shallow(
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-      <Transactions user={{ uid: '123' }} />
+      <SingleCharity />
     </MuiThemeProvider>,
   )
 })

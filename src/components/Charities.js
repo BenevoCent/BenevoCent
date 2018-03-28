@@ -145,6 +145,9 @@ export default class Charities extends Component {
       item.name.toLowerCase().match(this.state.searchVal.toLowerCase())
     );
     return (
+
+    
+
       <div style={{ width: '100vw' }}>
         <Dialog
           title="Settings Saved"
@@ -315,3 +318,43 @@ export default class Charities extends Component {
     );
   }
 }
+
+
+
+
+
+  {/* <div style={styles.root}>
+        <SearchBar
+          onChange={() => console.log('onChange')}
+          onRequestSearch={() => console.log('onRequestSearch')}
+          style={{
+            margin: '3',
+            marginBottom: '5px',
+            width: '90vw',
+          }}
+        />
+        <GridList style={styles.gridList} cols={2}>
+          {this.state.charities && this.state.charities.map((charity) => (
+            <GridTile
+              key={charity.img}
+              title={charity.name}
+              subtitle={<span><b>{charity.tag}</b></span>}
+              actionIcon={
+                <IconButton>
+                  <CheckBox color="rgb(255, 255, 255)" />
+                </IconButton>
+              }
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              titleStyle={styles.titleStyle}
+              titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+            >
+              <img src={charity.img} alt="charity" />
+              <br />
+              <a href={charity.url} target="_blank">Main Website</a>
+            </GridTile>
+          ))}
+        </GridList> */}

@@ -18,7 +18,7 @@ export default class Transactions extends Component {
   }
 
   getTransactions() {
-    var transactions = [];
+    let transactions = [];
     db.collection('all_transactions').doc(this.props.user.uid).collection('user_transactions')
       .get()
       .then(snapshot => {
@@ -68,9 +68,9 @@ export default class Transactions extends Component {
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
               {
-                this.state.transactions.map(elem => {
-                  return (
-                    <TableRow key={elem.name}>
+                this.state.transactions.map((elem, idx) => {
+                  return ( 
+                    <TableRow key={idx}>
                       <TableRowColumn>{elem.date}</TableRowColumn>
                       <TableRowColumn>{elem.account_id}</TableRowColumn>
                       <TableRowColumn>{elem.name}</TableRowColumn>

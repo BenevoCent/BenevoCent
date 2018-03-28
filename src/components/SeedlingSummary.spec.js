@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom'
 import SeedlingSummary from './SeedlingSummary'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { shallow, configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme(
   {
@@ -22,9 +26,9 @@ const seed = 'carrot';
 
 // eslint-disable-next-line
 it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(
+  const div = shallow(
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
       <SeedlingSummary price={price} seed={seed} />
-    </MuiThemeProvider>, div)
+    </MuiThemeProvider>,
+  )
 })
