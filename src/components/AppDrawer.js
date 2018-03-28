@@ -18,6 +18,9 @@ export default class AppDrawer extends Component {
           <List>
             <Link to="/">
               <ListItem primaryText="Home" onClick={this.props.handleClose} />
+
+            <Divider />
+
             </Link>
             <Link to="/account">
               <ListItem
@@ -31,6 +34,9 @@ export default class AppDrawer extends Component {
                 onClick={this.props.handleClose}
               />
             </Link>
+
+            <Divider />
+
             <Link to="/gardens">
               <ListItem
                 primaryText="Gardens"

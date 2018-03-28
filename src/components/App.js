@@ -82,6 +82,7 @@ export default class App extends Component {
     this.removeListener();
   }
   render() {
+    // console.log(this.state.user.displayName)
     const authButtons = this.state.authed ? (
       <FlatButton
         label="Logout"
