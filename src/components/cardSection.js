@@ -23,15 +23,9 @@ const styles = {
   inputField: {
     fontSize: "18px",
     lineHeight: "24px", 
-    // width: "306px", 
-    // height: "72px", 
-    // display: "inline-block",
     position: "relative", 
-    backgroundColor: "transparent", 
-    fontFamily: "Roboto, sans-serif", 
-    transition: "height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
     cursor: "auto",
-    left: "5%"
+    left: "5%",
   }
 };
 

@@ -6,7 +6,7 @@ import RaisedButton from "material-ui/RaisedButton";
 
 import { db } from "../config/constants";
 import {Elements} from 'react-stripe-elements';
-import InjectedCheckoutForm from './checkoutForm';
+import InjectedCheckoutForm from './CheckoutForm';
 
 
 export default class LumpPayment extends Component {

@@ -28,7 +28,7 @@ import Charities from './Charities';
 
 // Test
 import Test from './GardenGridV2';
-import LumpPayment from './lumpPayment';
+import LumpPayment from './LumpPayment';
 import SingleCharity from './SingleCharity';
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {

@@ -1,14 +1,7 @@
 import React, { Component } from "react";
-//import SelectField from "material-ui/SelectField";
-//import MenuItem from "material-ui/MenuItem";
-//import TextField from "material-ui/TextField";
-//import RaisedButton from "material-ui/RaisedButton";
-
-import { db } from "../config/constants";
 import {Elements} from 'react-stripe-elements';
-import {Stripe, injectStripe, stripeTokenHandler} from 'react-stripe-elements';
-import CardSection from './cardSection'
-
+import { injectStripe } from 'react-stripe-elements';
+import CardSection from './CardSection'
 
 
 let style = {

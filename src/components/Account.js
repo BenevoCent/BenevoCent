@@ -72,7 +72,7 @@ export default class Account extends Component {
   }
 
   getAccounts() {
-    var userAccounts = [];
+    let userAccounts = [];
     db.collection('accounts').doc(this.props.user.uid).collection('userAccounts')
       .get()
       .then(snapshot => {
@@ -91,7 +91,7 @@ export default class Account extends Component {
   }
 
   getDonations() {
-    var userDonations = {}
+    let userDonations = {}
     db.collection('donationsFromUsers').doc(this.props.user.uid)
       .get()
       .then(snapshot => {

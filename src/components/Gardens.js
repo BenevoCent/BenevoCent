@@ -144,7 +144,7 @@ export default class Gardens extends Component {
       );
   }
   getGardens() {
-    var gardens = [];
+    let gardens = [];
     db
       .collection('gardens')
       .doc(this.props.user.uid)
