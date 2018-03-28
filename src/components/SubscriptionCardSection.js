@@ -43,11 +43,15 @@ class SubscriptionCardSection extends React.Component {
 
   handleSubmit = (ev) => {
 
+    console.log('in handleSubmit');
+
     ev.preventDefault();
     ev.persist();
     let userId = this.props.user.uid;
     
     this.props.stripe.createToken({name: userId}).then(({token}) => {
+        console.log('in createToken');
+
       axios.post('http://localhost:8000/subscribeCustomer', { userId, token });
     });
   }

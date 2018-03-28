@@ -20,8 +20,8 @@ export default class Account extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRemove = this.handleRemove.bind(this)
-    this.handleRedirect = this.handleRedirect.bind(this)
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
   handleChange = (event, index, bank) => {
@@ -242,9 +242,9 @@ export default class Account extends Component {
             style={{ margin: 0 }}
           />
         </form>
-        <Elements>
+        {/*<Elements>
           <DonationCheckoutForm user={this.props.user} type={'subscription'} />
-        </Elements>
+        </Elements>*/}
       </div>
     );
   }

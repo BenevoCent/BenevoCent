@@ -156,6 +156,7 @@ class DonationCardSection extends React.Component {
                 return (<MenuItem key={charity.name} value={charity.uid} primaryText={charity.name}/> )    
               })}
             </SelectField>  
+            <Card style={{width: "95vw", marginLeft: "auto", marginRight: "auto", marginTop: "2vh"}}>
             <h3>Enter Card Info Here:</h3>              
             <div style={styles.inputField} >
               <label>
@@ -181,6 +182,7 @@ class DonationCardSection extends React.Component {
                 <PostalCodeElement />              
               </label>
             </div>
+            </Card>
             <RaisedButton
               label="Submit"
               primary={true}
