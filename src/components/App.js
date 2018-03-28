@@ -21,6 +21,7 @@ import Transactions from './Transactions';
 import Gardens from './Gardens';
 import Seedlings from './Seedlings';
 import Charities from './Charities';
+import SplashScreen from './SplashScreen';
 
 // Test
 import Test from './GardenGridV2';
@@ -97,19 +98,8 @@ export default class App extends Component {
 
 
     return this.state.loading === true ? (
-      <div
-        id="loading-container"
-        style={{
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CircularProgress size={80} thickness={5} />
-      </div>
-    ) : (
+      <SplashScreen />
+     ) : (
       <HashRouter>
         <div>
           <AppDrawer
@@ -145,14 +135,6 @@ export default class App extends Component {
                     path="/register"
                     component={Register}
                   />
-                  {
-                    // <PrivateRoute
-                    //   authed={this.state.authed}
-                    //   path="/dashboard"
-                    //   component={Dashboard}
-                    //   user={this.state.user}
-                    // />
-                  }
                   <PrivateRoute
                     authed={this.state.authed}
                     path="/account"

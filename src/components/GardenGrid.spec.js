@@ -4,6 +4,10 @@ import GardenGrid from "./GardenGrid";
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { shallow, configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme(
   {
@@ -20,11 +24,10 @@ const muiTheme = getMuiTheme(
 
 
 // eslint-disable-next-line
-it('renders without crashing', (done) => {
-  const div = document.createElement('div')
-  ReactDOM.render(
+it('renders without crashing', () => {
+  const div = shallow(
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-      <GardenGrid plots={[]} />
-    </MuiThemeProvider>, div)
-  setTimeout(() => done());
+      <GardenGrid plots={[null, null, null, null, null, null, null, null, null]} />
+    </MuiThemeProvider>,
+  )
 })

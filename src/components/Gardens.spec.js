@@ -9,6 +9,10 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { shallow, configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme(
   {
@@ -25,11 +29,10 @@ const muiTheme = getMuiTheme(
 
 
 // eslint-disable-next-line
-it('renders without crashing', (done) => {
-  const div = document.createElement('div')
-  ReactDOM.render(
-  <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-    <Gardens user={{uid:"123"}}/>
-  </MuiThemeProvider>, div)
-  setTimeout(() => done());
+it('renders without crashing', () => {
+  const div = shallow(
+    <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
+      <Gardens user={{ uid: "123" }} />
+    </MuiThemeProvider>,
+  )
 })
