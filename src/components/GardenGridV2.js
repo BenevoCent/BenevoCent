@@ -4,6 +4,8 @@ const containerStyle = {
   // container: {
     height: '60vw',
     width: '60vw',
+    maxWidth: '620px',
+    maxHeight: '620px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -81,7 +83,7 @@ export default class GardenGridV2 extends Component {
   trueeight = () => {
     this.setState({ eight: true });
   }
-  
+
   falsezero = () => {
     this.setState({ zero: false });
   }
@@ -109,7 +111,7 @@ export default class GardenGridV2 extends Component {
   falseeight = () => {
     this.setState({ eight: false });
   }
-  
+
 
   render() {
 
@@ -150,6 +152,8 @@ export default class GardenGridV2 extends Component {
     let normalstyle = {
       height: '17.33vw',
       width: '17.33vw',
+      maxWidth: '155px',
+      maxHeight: '155px',
       padding: '1vw',
       margin: '1vw',
       backgroundColor: '#7c684c',
@@ -160,6 +164,8 @@ export default class GardenGridV2 extends Component {
     let hoverstyle = {
       height: '17.33vw',
       width: '17.33vw',
+      maxWidth: '155px',
+      maxHeight: '155px',
       padding: '1vw',
       margin: '1vw',
       backgroundColor: '#7c684c',
@@ -183,7 +189,7 @@ export default class GardenGridV2 extends Component {
 
     return (
       <div id="carousel-summary">
-        <h3>${this.props.monthlyDonation}</h3>
+        <h3>Total Donations: ${this.props.monthlyDonation}</h3>
         <div className="container" style={containerStyle}>
           <div className="cell" style={zerostyle} onMouseEnter={this.truezero} onMouseLeave={this.falsezero}>
             {gardenPlots[0] ? <img src={gardenPlots[0]} style={imageStyle} alt="cell" /> : null}
@@ -210,7 +216,11 @@ export default class GardenGridV2 extends Component {
             {gardenPlots[7] ? <img src={gardenPlots[7]} alt="cell" /> : null}
           </div>
           <div className="cell" style={eightstyle} onMouseEnter={this.trueeight} onMouseLeave={this.falseeight}>
+<<<<<<< HEAD
             {gardenPlots[0] ? <img src={gardenPlots[8]} style={imageStyle} alt="cell" /> : null}
+=======
+            {gardenPlots[8] ? <img src={gardenPlots[8]} alt="cell" /> : null}
+>>>>>>> master
           </div>
         </div>
       </div>

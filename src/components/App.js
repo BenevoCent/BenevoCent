@@ -1,47 +1,57 @@
 // Node Modules
+<<<<<<< HEAD
 import React, { Component } from "react";
 import { Route, HashRouter, Link, Redirect, Switch } from "react-router-dom";
 import {StripeProvider} from 'react-stripe-elements';
 
+=======
+import React, { Component } from 'react';
+import { Route, HashRouter, Link, Redirect, Switch } from 'react-router-dom';
+>>>>>>> master
 
 // Material UI
-import AppBar from "material-ui/AppBar";
-import FlatButton from "material-ui/FlatButton";
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 
 // Helpers and Constants
-import { logout } from "../helpers/auth";
-import { firebaseAuth } from "../config/constants";
+import { logout } from '../helpers/auth';
+import { firebaseAuth } from '../config/constants';
 
 // Custom Components
 import AppDrawer from './AppDrawer';
-import Login from "./Login";
-import Register from "./Register";
-import Home from "./Home";
-import Dashboard from "./protected/Dashboard";
-import Account from "./Account";
-import Transactions from "./Transactions";
-import Gardens from "./Gardens";
-import Seedlings from "./Seedlings";
-import Charities from "./Charities";
+import Login from './Login';
+import Register from './Register';
+import Home from './Home';
+import Account from './Account';
+import Transactions from './Transactions';
+import Gardens from './Gardens';
+import Seedlings from './Seedlings';
+import Charities from './Charities';
 
 // Test
+<<<<<<< HEAD
 import Test from "./GardenGridV2";
 import LumpPayment from "./lumpPayment";
+=======
+import Test from './GardenGridV2';
+import SingleCharity from './SingleCharity';
+>>>>>>> master
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
-  return ( <Route {...rest} // these are props passed to Route
+  return ( <Route
+{...rest} // these are props passed to Route
     render={props => // "props" are passed to sub-component
-      authed === true ? (
-        <Component {...props} user={user}/> // remember to declare what other props you need. i.e "user={user}"
+      (authed === true ? (
+        <Component {...props} user={user} /> // remember to declare what other props you need. i.e "user={user}"
       ) : (
-        <Redirect to= { { pathname: "/login", state: { from: props.location } } } />
-      )}/>
+        <Redirect to= { { pathname: '/login', state: { from: props.location } } } />
+      ))} />
   );
 }
 
 function PublicRoute({ component: Component, authed, ...rest }) {
-  return ( <Route {...rest} render={props => authed === false ? ( <Component {...props} /> ) : ( <Redirect to="/dashboard" /> )} /> );
+  return ( <Route {...rest} render={props => (authed === false ? ( <Component {...props} /> ) : ( <Redirect to="/gardens" /> ))} /> );
 }
 
 export default class App extends Component {
@@ -53,7 +63,7 @@ export default class App extends Component {
     user: null,
   };
 
-  handleTabChange = value => { this.setState ( { tabIndex: value } ) };
+  handleTabChange = value => { this.setState( { tabIndex: value } ) };
   handleToggle = () => this.setState({ open: !this.state.open });
   handleClose = () => this.setState({ open: false });
 
@@ -84,22 +94,31 @@ export default class App extends Component {
         onClick={() => {
           logout();
         }}
-        style={{ color: "#fff" }}
+        style={{ color: '#fff' }}
       />
     ) : (
       <span>
         <Link to="/login">
-          <FlatButton label="Login" style={{ color: "#fff" }} />
+          <FlatButton label="Login" style={{ color: '#fff' }} />
         </Link>
         <Link to="/register">
-          <FlatButton label="Register" style={{ color: "#fff" }} />
+          <FlatButton label="Register" style={{ color: '#fff' }} />
         </Link>
       </span>
     );
 
 
     return this.state.loading === true ? (
-      <div id="loading-container">
+      <div
+        id="loading-container"
+        style={{
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <CircularProgress size={80} thickness={5} />
       </div>
     ) : (
@@ -112,19 +131,19 @@ export default class App extends Component {
           />
           <div>
             <AppBar
-              title={<img src="/Benevocent_all_grass_bigC.png" style={{height: "30px" }} alt="logo"/>}
+              title={<img src="/Benevocent_all_grass_bigC.png" style={{height: '30px' }} alt="logo" />}
               onLeftIconButtonTouchTap={this.handleToggle}
               // iconElementRight={topbarButtons}
               iconElementRight={authButtons}
               // children={tabs}
               iconStyleRight={{
-                display: "flex",
-                alignItems: "center",
-                marginTop: "0"
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: '0'
               }}
             />
 
-            <div className="container d-flex justify-content-center mt-3">
+            <div className="container d-flex justify-content-center">
               <div className="row">
                 <Switch>
                   <Route path="/" exact component={Home} />
@@ -138,12 +157,14 @@ export default class App extends Component {
                     path="/register"
                     component={Register}
                   />
-                  <PrivateRoute
-                    authed={this.state.authed}
-                    path="/dashboard"
-                    component={Dashboard}
-                    user={this.state.user}
-                  />
+                  {
+                    // <PrivateRoute
+                    //   authed={this.state.authed}
+                    //   path="/dashboard"
+                    //   component={Dashboard}
+                    //   user={this.state.user}
+                    // />
+                  }
                   <PrivateRoute
                     authed={this.state.authed}
                     path="/account"
@@ -170,8 +191,14 @@ export default class App extends Component {
                   />
                   <PrivateRoute
                     authed={this.state.authed}
-                    path="/orgs"
+                    exact path="/orgs"
                     component={Charities}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    exact path="/orgs/:charityName"
+                    component={SingleCharity}
                     user={this.state.user}
                   />
                   <PrivateRoute

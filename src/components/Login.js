@@ -42,7 +42,6 @@ export default class Login extends Component {
         style={style.container}
         onSubmit={event => this.handleSubmit(event)}
       >
-        <h3>Login</h3>
         <TextField
           hintText="Enter your Email"
           floatingLabelText="Email"
@@ -89,7 +88,8 @@ const raisedBtn = {
 };
 
 const container = {
-  textAlign: 'center'
+  textAlign: 'center',
+  marginTop: '1rem'
 };
 
 const style = {
