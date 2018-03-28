@@ -76,7 +76,7 @@ export default class SingleCharity extends Component {
     let plots = [null, null, null, null, null, null, null, null, null];
     let names = [];
     this.state.donors.map((donor, idx) => {
-      db.collection('users')
+      return db.collection('users')
         .doc(donor.uid)
         .get()
         .then(user => {
