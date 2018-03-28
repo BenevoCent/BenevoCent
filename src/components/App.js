@@ -186,7 +186,7 @@ export default class App extends Component {
                   <StripeProvider apiKey="pk_test_7NDxNFwTXZI5iGsCursLGPh2">
                     <PrivateRoute
                       authed={this.state.authed}
-                      path="/stripe"
+                      path="/directDonations"
                       component={DirectDonation}
                       user={this.state.user}
                     />

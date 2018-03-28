@@ -25,6 +25,12 @@ export default class AppDrawer extends Component {
                 onClick={this.props.handleClose}
               />
             </Link>
+            <Link to="/directDonations">
+              <ListItem
+                primaryText="Donate Directly"
+                onClick={this.props.handleClose}
+              />
+            </Link>
             <Link to="/transactions">
               <ListItem
                 primaryText="Transactions"
