@@ -80,7 +80,7 @@ export default class SingleCharity extends Component {
         .doc(donor.uid)
         .get()
         .then(user => {
-          console.log('idx', idx);
+          // console.log('idx', idx);
           plots[idx] = user.data().selectedSeedling;
           names.push(user.data().displayName);
         })
@@ -96,11 +96,6 @@ export default class SingleCharity extends Component {
   }
 
   render() {
-    console.log('charity: ', this.state.charity);
-    console.log('route: ', this.props.match.params.charityName);
-    console.log('donors: ', this.state.donors);
-    console.log('plots: ', this.state.plots);
-    console.log('names: ', this.state.names);
     if (Object.keys(this.state.charity).length === 0) {
       return (
         <div id="loading-container">

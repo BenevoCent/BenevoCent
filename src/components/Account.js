@@ -18,7 +18,10 @@ export default class Account extends Component {
     };
   }
 
-  handleChange = (event, index, bank) => this.setState({ bank });
+  handleChange = (event, index, bank) => {
+    console.log('bank', bank);
+    this.setState({ bank });
+  };
   handleSubmit = event => {
     let accountUid = uuid()
     db.collection('accounts')
@@ -56,7 +59,7 @@ export default class Account extends Component {
   handleRedirect = (charityName, event) => {
     this.props.history.push(`/orgs/${charityName.trim().replace(/ /g, "_")}`)
   }
-
+  
   getAccounts = () => {
     let userAccounts = [];
     db.collection('accounts').doc(this.props.user.uid).collection('userAccounts')
