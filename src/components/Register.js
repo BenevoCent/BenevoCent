@@ -23,7 +23,7 @@ export default class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    auth(this.state.email, this.state.password).catch(e =>
+    auth(this.state.email, this.state.password, this.state.displayName).catch(e =>
       this.setState(setErrorMsg(e))
     );
   };

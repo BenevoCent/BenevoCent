@@ -3,6 +3,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import DonationCheckoutForm from './DonationCheckoutForm';
+import {Elements} from 'react-stripe-elements';
+
 
 import { db } from '../config/constants';
 const uuid = require('uuidv4');
@@ -11,14 +14,15 @@ export default class Account extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bank: 'Chase',
+      bank: 'American Express',
       userAccounts: [],
-      userDonations: {}
+      userDonations: {},
+      storeUser: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRemove = this.handleRemove.bind(this)
-    this.handleRedirect = this.handleRedirect.bind(this)
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
   handleChange = (event, index, bank) => {
@@ -26,7 +30,6 @@ export default class Account extends Component {
     this.setState({ bank });
   };
   handleSubmit = event => {
-    event.preventDefault();
     let accountUid = uuid()
     db.collection('accounts')
       .doc(`${this.props.user.uid}`)
@@ -40,28 +43,21 @@ export default class Account extends Component {
         bankAccountPassword: this.state.bankAccountPassword,
         accountUid: accountUid
       })
-      .then(function () {
-        // let modifiedUserAccounts = this.state.userAccounts
-        // modifiedUserAccounts.push({
-        //   bankAccountName: this.state.bankAccountName,
-        //   bank: this.state.bank,
-        //   bankAccountUsername: this.state.bankAccountUsername
-        // })
-        // this.setState({ userAccounts: modifiedUserAccounts })
-        // console.log(this.state.userAccounts)
+      .then( () => {
         console.log('Document successfully written!');
+        this.getAccounts()
       })
       .catch(function (error) {
         console.error('Error writing document: ', error);
       });
   };
   handleRemove = (accountUid, event) => {
-    // event.preventDefault()
     db.collection('accounts').doc(this.props.user.uid).collection('userAccounts')
       .doc(accountUid)
       .delete()
-      .then(function () {
+      .then( () => {
         console.log('Document successfully deleted');
+        this.getAccounts()
       })
       .catch(function (error) {
         console.error('Error removing document: ', error);
@@ -70,15 +66,14 @@ export default class Account extends Component {
   handleRedirect = (charityName, event) => {
     this.props.history.push(`/orgs/${charityName.trim().replace(/ /g, "_")}`)
   }
-
-  getAccounts() {
+  
+  getAccounts = () => {
     let userAccounts = [];
     db.collection('accounts').doc(this.props.user.uid).collection('userAccounts')
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
           userAccounts.push(doc.data());
-          // console.log(doc.id, "=>", doc.data());
         });
         return userAccounts
       })
@@ -112,21 +107,33 @@ export default class Account extends Component {
       })
   }
 
+  getUser() {
+    let currentUser = {}
+    db.collection('users').doc(this.props.user.uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.exists) {
+          currentUser = snapshot.data()
+          this.setState({ storeUser: currentUser })
+        }
+      })
+  }
+
   componentDidMount() {
     this.getAccounts();
     this.getDonations();
+    this.getUser();
   }
 
   render() {
-    let user = this.props.user;
+    let user = this.state.storeUser;
     const userAccounts = this.state.userAccounts;
     const userDonations = this.state.userDonations;
-    // console.log(userDonations)
 
     return (
       <div id="account-info" style={{marginTop: "1rem"}}>
-        {console.log(user)}
-        <h2>Welcome to Your Account, {user.displayName}</h2>
+
+        <h2>Welcome {user.displayName}!</h2>
         <br />
         <h3>Your Past Donations</h3>
         <br />
@@ -155,7 +162,7 @@ export default class Account extends Component {
             ))
             : null}
         </ul>
-        <h3>Your Saved Accounts</h3>
+        <h3>Your Saved Credit Card Accounts</h3>
         <br />
         <ul style={{ listStyleType: 'none', padding: '0' }}>
           {userAccounts
@@ -183,7 +190,7 @@ export default class Account extends Component {
             ))
             : null}
         </ul>
-        <h3>Add a New Account</h3>
+        <h3>Add a New Credit Card Account</h3>
         <form className="bankForm" onSubmit={event => this.handleSubmit(event)}>
           <TextField
             name="bankAccountName"
@@ -239,6 +246,9 @@ export default class Account extends Component {
             style={{ margin: 0 }}
           />
         </form>
+        {/*<Elements>
+          <DonationCheckoutForm user={this.props.user} type={'subscription'} />
+        </Elements>*/}
       </div>
     );
   }

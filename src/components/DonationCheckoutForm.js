@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {Elements} from 'react-stripe-elements';
 import { injectStripe } from 'react-stripe-elements';
-import DonationCardSection from './DonationCardSection'
+import DonationCardSection from './DonationCardSection';
+import SubscriptionCardSection from './SubscriptionCardSection';
 
 let style = {
     base: {
@@ -31,8 +32,11 @@ export class DonationCheckoutForm extends Component {
 
     return (
         <div style={{width: "100vw"}}>
-            <h3>Direct Donation</h3>
-            <DonationCardSection user={this.props.user} />
+            {
+                this.props.type === 'donation' 
+                ? (<DonationCardSection user={this.props.user} />)
+                : (<SubscriptionCardSection user={this.props.user} />)
+            }
         </div>
     );
   }
