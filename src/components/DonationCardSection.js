@@ -6,9 +6,12 @@ import {injectStripe} from 'react-stripe-elements';
 import SelectField from "material-ui/SelectField";
 import RaisedButton from "material-ui/RaisedButton";
 import MenuItem from "material-ui/MenuItem";
-import axios from 'axios';
 import { Card } from 'material-ui/Card';
+import axios from 'axios';
 import NumberInput from 'material-ui-number-input';
+
+console.log('delete me');
+
 
 const styles = {
   root: {
@@ -30,7 +33,7 @@ const styles = {
 };
 
 
-class CardSection extends React.Component {
+class DonationCardSection extends React.Component {
 
   constructor(props) {
     super(props);
@@ -64,7 +67,7 @@ class CardSection extends React.Component {
 
 
   handleSubmit = (ev) => {
-    console.log('in the handleSubmit cardSection')
+    console.log('in the handleSubmit donationCardSection')
 
     let charity = this.state.charities.filter((charity) => charity.uid === this.state.charityUid);
     let amount = this.state.donationAmount * 100;
@@ -198,7 +201,7 @@ class CardSection extends React.Component {
   }
 };
 
-export default injectStripe(CardSection);
+export default injectStripe(DonationCardSection);
 
 
 

@@ -6,10 +6,11 @@ import RaisedButton from "material-ui/RaisedButton";
 
 import { db } from "../config/constants";
 import {Elements} from 'react-stripe-elements';
-import InjectedCheckoutForm from './CheckoutForm';
+import DonationCheckoutForm from './DonationCheckoutForm';
 
+console.log('delete me');
 
-export default class LumpPayment extends Component {
+export default class DirectDonation extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,10 +25,10 @@ export default class LumpPayment extends Component {
   }
 
   render() {
-    console.log('in lumpPayment');
+    console.log('in DirectDonation');
     return (
         <Elements>
-            <InjectedCheckoutForm user={this.props.user}/>
+            <DonationCheckoutForm user={this.props.user}/>
         </Elements>
     );
   }

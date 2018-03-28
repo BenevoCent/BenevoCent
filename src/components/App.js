@@ -28,7 +28,7 @@ import Charities from './Charities';
 
 // Test
 import Test from './GardenGridV2';
-import LumpPayment from './LumpPayment';
+import DirectDonation from './DirectDonation';
 import SingleCharity from './SingleCharity';
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
@@ -205,7 +205,7 @@ export default class App extends Component {
                     <PrivateRoute
                       authed={this.state.authed}
                       path="/stripe"
-                      component={LumpPayment}
+                      component={DirectDonation}
                       user={this.state.user}
                     />
                   </StripeProvider>
