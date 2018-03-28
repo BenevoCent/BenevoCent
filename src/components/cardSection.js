@@ -8,6 +8,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import MenuItem from "material-ui/MenuItem";
 import axios from 'axios';
 import { Card } from 'material-ui/Card';
+import NumberInput from 'material-ui-number-input';
 
 
 const styles = {
@@ -45,12 +46,19 @@ class CardSection extends React.Component {
 
     this.state = {
       charities: [],
-      charityUid: ''
+      charityUid: '',
+      donationAmount: 0,
+      errorText: 'Nope'
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getCharities = this.getCharities.bind(this);
+
+    this.numberChange = this.numberChange.bind(this);
+    this.onValid = this.onValid.bind(this);
+    this.onError = this.onError.bind(this);
+
 
   }
 
@@ -67,12 +75,15 @@ class CardSection extends React.Component {
   handleSubmit = (ev) => {
     console.log('in the handleSubmit cardSection')
 
+    let charity = this.state.charities.filter((charity) => charity.uid === this.state.charityUid);
+    let amount = this.state.donationAmount * 100;
+
     ev.preventDefault();
     ev.persist();
     let body = {
-      amount: ev.target.amount.value,
-      charityId: ev.target.charity.value,
-      charityName: ev.target.charity.name,
+      amount: amount,
+      charityId: this.state.charityUid,
+      charityName: charity.name,
       userId: this.props.user.uid
     }
     this.props.stripe.createToken({name: 'Manny Mapsagna'}).then(({token}) => {
@@ -81,6 +92,28 @@ class CardSection extends React.Component {
 
     });
   }
+
+  numberChange = (event, donationAmount) => {
+    console.log('donationAmount', donationAmount);
+    this.onValid(donationAmount);
+
+  }
+
+  onValid = (donationAmount) => {
+    let string = donationAmount.toString();
+    console.log('donationAmount', donationAmount);
+    if(!string.match("[a-z]")){
+      this.setState({donationAmount});
+    } else {
+      this.onError('Nope');
+    }
+
+  }
+
+
+  onError(error) {
+    this.setState({ errorText: error !== 'none' ? 'Error: ' + error : '' });
+}
 
   getCharities() {
     let charities = [];
@@ -112,14 +145,19 @@ class CardSection extends React.Component {
     return (
       <div style={{left: "25%"}}>
           <h3>Enter Card Info Here:</h3>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-                  Donation Amount:
-                  <input name='amount' type='number' min='1' />
-              </label>
+          <form onSubmit={this.handleSubmit}>  
+            <NumberInput
+              floatingLabelText="Donation Amount"
+              value={this.donationAmount}
+              onChange={this.numberChange}
+              onValid={this.onValid}
+              errorText={this.errorText}
+              onError={this.onError}
+              strategy="allow"
+              required
+            />
                 <SelectField floatingLabelText="Charity" name="charity" value={this.state.charityUid} onChange={this.handleChange}>
                   {this.state.charities && this.state.charities.map((charity) => { 
-                    console.log('charity.uid', charity.uid);    
                     return (<MenuItem key={charity.name} value={charity.uid} primaryText={charity.name}/> )    
                   })}
                 </SelectField>                
