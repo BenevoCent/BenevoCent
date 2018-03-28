@@ -10,26 +10,22 @@ import axios from 'axios';
 import { Card } from 'material-ui/Card';
 import NumberInput from 'material-ui-number-input';
 
-
 const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     marginTop: '1rem'
-  },
+  }
   container: {
     padding: '1em'
-  },
-  // inputField: {
-  //   backgroundColor: 'green'
-  // }
+  }
   inputField: {
     fontSize: "18px",
     lineHeight: "24px", 
-    width: "306px", 
-    height: "72px", 
-    display: "inline-block",
+    // width: "306px", 
+    // height: "72px", 
+    // display: "inline-block",
     position: "relative", 
     backgroundColor: "transparent", 
     fontFamily: "Roboto, sans-serif", 
@@ -38,6 +34,7 @@ const styles = {
     left: "5%"
   }
 };
+
 
 class CardSection extends React.Component {
 
