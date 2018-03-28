@@ -28,7 +28,6 @@ export function saveUser(user) {
     .collection(`users`)
     .doc(user.uid)
     .set({
-    // .add({
       email: user.email,
       uid: user.uid
     })

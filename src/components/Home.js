@@ -34,12 +34,12 @@ export default class Home extends Component {
           )}
         >
           <div className="carousel-summary" style={style}>
-            <h1>Welcome to BenevoCent!</h1>
-            <p style={{width: "85vw"}}>Donate to charitable organizations automatically.</p>
+            <img src="/android-chrome-256x256.png" alt="256logo" style={{ width: "256px", height: "256px", padding: "20px" }} />
+            <p style={{ width: "85vw" }}>BenevoCent<br />Where donations are more fun!</p>
           </div>
           <div className="carousel-summary" style={style}>
-            <h1>Change</h1>
-            <p style={{width: "85vw"}}>We round up your purchases to the nearest dollar and donate the change to a charity of your choice.</p>
+            <img src="/svg/coins.svg" alt="coins" style={{ width: "50vw", maxHeight: " 280px", padding: "10px" }} />
+            <p style={{ width: "85vw" }}>We round up your purchases to the nearest dollar and donate the change to the charities of your choice.</p>
           </div>
           <div className="carousel-summary" style={style}>
             <img src="/svg/leaf.svg" alt="it's a leaf" style={{maxHeight: '400px', width: "70vw", padding: "25px"}}/>

@@ -16,7 +16,6 @@ import AppDrawer from './AppDrawer';
 import Login from './Login';
 import Register from './Register';
 import Home from './Home';
-// import Dashboard from './protected/Dashboard';
 import Account from './Account';
 import Transactions from './Transactions';
 import Gardens from './Gardens';
@@ -32,9 +31,9 @@ function PrivateRoute({ component: Component, authed, user, ...rest}) {
 {...rest} // these are props passed to Route
     render={props => // "props" are passed to sub-component
       (authed === true ? (
-        <Component {...props} user={user}/> // remember to declare what other props you need. i.e "user={user}"
+        <Component {...props} user={user} /> // remember to declare what other props you need. i.e "user={user}"
       ) : (
-        <Redirect to= { { pathname: "/login", state: { from: props.location } } } />
+        <Redirect to= { { pathname: '/login', state: { from: props.location } } } />
       ))} />
   );
 }
