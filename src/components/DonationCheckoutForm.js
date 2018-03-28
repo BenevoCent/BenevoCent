@@ -3,8 +3,6 @@ import {Elements} from 'react-stripe-elements';
 import { injectStripe } from 'react-stripe-elements';
 import DonationCardSection from './DonationCardSection'
 
-console.log('delete me');
-
 let style = {
     base: {
         color: '#32325d',

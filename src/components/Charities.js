@@ -219,7 +219,7 @@ export default class Charities extends Component {
                           <IconButton
                             onClick={() => {
                               let newNamedCharities = this.state.namedCharities;
-                              newNamedCharities[charity.name] = 0;
+                              newNamedCharities[charity.name] = {uid: charity.uid, split: 0};
                               this.setState({
                                 namedCharities: newNamedCharities
                               });
