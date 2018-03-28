@@ -10,7 +10,7 @@ import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
 
 import { Link } from 'react-router-dom';
 import { Card } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
 
 import { db } from '../config/constants';
@@ -228,7 +228,7 @@ export default class Charities extends Component {
           <Tab label="Split Donations" value={1}>
             <div style={styles.root}>
               {Object.keys(this.state.namedCharities).map(key => {
-                let sliderVal = this.state.namedCharities[key] * 100;
+                // let sliderVal = this.state.namedCharities[key] * 100;
                 return (
                   <Card
                     key={key}

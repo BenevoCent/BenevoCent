@@ -28,6 +28,7 @@ export function saveUser(user) {
     .collection(`users`)
     .doc(user.uid)
     .set({
+      displayName: user.displayName,
       email: user.email,
       uid: user.uid
     })

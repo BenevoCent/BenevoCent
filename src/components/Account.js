@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { db } from '../config/constants';
 const uuid = require('uuidv4');
 
-
 export default class Account extends Component {
   constructor(props) {
     super(props);
@@ -65,8 +64,8 @@ export default class Account extends Component {
         console.error('Error removing document: ', error);
       })
   }
-  handleRedirect = event => {
-    // this.props.history.push('/')
+  handleRedirect = (charityName, event) => {
+    this.props.history.push(`/orgs/${charityName.trim().replace(/ /g, "_")}`)
   }
 
   getAccounts() {
@@ -93,18 +92,20 @@ export default class Account extends Component {
     db.collection('donationsFromUsers').doc(this.props.user.uid)
       .get()
       .then(snapshot => {
-        const donationsObject = snapshot.data()
-        const orgs = Object.keys(donationsObject)
-        // console.log("donations", snapshot.data())
-        // console.log(orgs)
-        orgs.forEach(org => {
-          db.collection('charities').doc(org)
-            .get()
-            .then(snapshot => {
-              userDonations[snapshot.data().name] = donationsObject[org]
-              this.setState({ userDonations: userDonations })
-            })
-        })
+        if (snapshot.exists) {
+          const donationsObject = snapshot.data()
+          const orgs = Object.keys(donationsObject)
+          // console.log("donations", snapshot.data())
+          // console.log(orgs)
+          orgs.forEach(org => {
+            db.collection("charities").doc(org)
+              .get()
+              .then(snapshot => {
+                userDonations[snapshot.data().name] = donationsObject[org]
+                this.setState({ userDonations: userDonations })
+              })
+          })
+        }
       })
   }
 
@@ -114,13 +115,16 @@ export default class Account extends Component {
   }
 
   render() {
-    // let userId = this.props.user.uid;
+    let user = this.props.user;
     const userAccounts = this.state.userAccounts;
     const userDonations = this.state.userDonations;
     // console.log(userDonations)
 
     return (
-      <div id="account-info" style={{marginTop: '1rem'}}>
+      <div id="account-info" style={{marginTop: "1rem"}}>
+        {console.log(user)}
+        <h2>Welcome to Your Account, {user.displayName}</h2>
+        <br />
         <h3>Your Past Donations</h3>
         <br />
         <ul style={{ listStyleType: 'none', padding: '0' }}>
@@ -140,13 +144,13 @@ export default class Account extends Component {
                   primary={true}
                   type="submit"
                   style={{ margin: 0 }}
-                  onClick={event => this.handleRedirect(event)}
+                  onClick={event => this.handleRedirect(key, event)}
                 />
                 <br />
                 <br />
               </div>
             ))
-            : <p>loading...</p>}
+            : null}
         </ul>
         <h3>Your Saved Accounts</h3>
         <br />
@@ -174,7 +178,7 @@ export default class Account extends Component {
                 <br />
               </div>
             ))
-            : <p>loading...</p>}
+            : null}
         </ul>
         <h3>Add a New Account</h3>
         <form className="bankForm" onSubmit={event => this.handleSubmit(event)}>
