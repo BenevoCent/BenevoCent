@@ -16,7 +16,6 @@ import AppDrawer from './AppDrawer';
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
-import Dashboard from "./protected/Dashboard";
 import Account from "./Account";
 import Transactions from "./Transactions";
 import Gardens from "./Gardens";
@@ -39,7 +38,7 @@ function PrivateRoute({ component: Component, authed, user, ...rest}) {
 }
 
 function PublicRoute({ component: Component, authed, ...rest }) {
-  return ( <Route {...rest} render={props => authed === false ? ( <Component {...props} /> ) : ( <Redirect to="/dashboard" /> )} /> );
+  return ( <Route {...rest} render={props => authed === false ? ( <Component {...props} /> ) : ( <Redirect to="/gardens" /> )} /> );
 }
 
 export default class App extends Component {
@@ -135,12 +134,6 @@ export default class App extends Component {
                     authed={this.state.authed}
                     path="/register"
                     component={Register}
-                  />
-                  <PrivateRoute
-                    authed={this.state.authed}
-                    path="/dashboard"
-                    component={Dashboard}
-                    user={this.state.user}
                   />
                   <PrivateRoute
                     authed={this.state.authed}
