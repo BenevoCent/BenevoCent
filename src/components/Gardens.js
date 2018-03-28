@@ -23,7 +23,7 @@ function onGoogleLoginReload() {
   return firebaseAuth().getRedirectResult()
     .then(result => {
       const user = result.user;
-      console.log(user)
+      // console.log(user)
       const userRef = db.collection('users').doc(user.uid);
 
       return db.runTransaction(async txn => {
@@ -259,6 +259,7 @@ export default class Gardens extends Component {
       <div style={{ marginTop: '1rem' }}>
         <div style={{ width: '100vw' }}>
           <RaisedButton
+            primary={true}
             labelStyle={{ textTransform: 'lowercase capitalize', fontSize: '16px' }}
             onClick={this.handleClick}
             label={ monthInWords(this.state.selectedMonthName) !== 'undefined 0' ? (monthInWords(this.state.selectedMonthName)) : ('Loading...' ) }
@@ -275,7 +276,7 @@ export default class Gardens extends Component {
           <Menu>
             {
               this.state.monthlyDonations.map(elem => {
-                console.log('elem', elem)
+                // console.log('elem', elem)
                 return (
                   <MenuItem
                     key={elem.month} primaryText={monthInWords(elem.month)} onClick={() => {

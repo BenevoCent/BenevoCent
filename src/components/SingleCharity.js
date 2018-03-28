@@ -80,7 +80,7 @@ export default class SingleCharity extends Component {
         .doc(donor.uid)
         .get()
         .then(user => {
-          console.log('idx', idx);
+          // console.log('idx', idx);
           plots[idx] = user.data().selectedSeedling;
           names.push(user.data().displayName);
         })
