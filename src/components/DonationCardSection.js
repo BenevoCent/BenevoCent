@@ -10,9 +10,6 @@ import { Card } from 'material-ui/Card';
 import axios from 'axios';
 import NumberInput from 'material-ui-number-input';
 
-console.log('delete me');
-
-
 const styles = {
   root: {
     display: 'flex',

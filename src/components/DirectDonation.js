@@ -8,8 +8,6 @@ import { db } from "../config/constants";
 import {Elements} from 'react-stripe-elements';
 import DonationCheckoutForm from './DonationCheckoutForm';
 
-console.log('delete me');
-
 export default class DirectDonation extends Component {
   constructor(props) {
     super(props);
