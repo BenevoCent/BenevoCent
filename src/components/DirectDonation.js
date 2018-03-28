@@ -28,7 +28,7 @@ export default class DirectDonation extends Component {
     console.log('in DirectDonation');
     return (
         <Elements>
-            <DonationCheckoutForm user={this.props.user}/>
+            <DonationCheckoutForm user={this.props.user} type={'donation'}/>
         </Elements>
     );
   }

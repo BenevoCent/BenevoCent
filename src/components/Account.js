@@ -3,6 +3,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import DonationCheckoutForm from './DonationCheckoutForm';
+import {Elements} from 'react-stripe-elements';
+
 
 import { db } from '../config/constants';
 const uuid = require('uuidv4');
@@ -239,6 +242,9 @@ export default class Account extends Component {
             style={{ margin: 0 }}
           />
         </form>
+        <Elements>
+          <DonationCheckoutForm user={this.props.user} type={'subscription'} />
+        </Elements>
       </div>
     );
   }
