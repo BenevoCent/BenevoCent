@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
-import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
+import React, { Component } from 'react';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
-import { db } from "../config/constants";
+import { db } from '../config/constants';
 const uuid = require('uuidv4');
 
 export default class Account extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bank: "Chase",
+      bank: 'Chase',
       userAccounts: [],
       userDonations: {}
     };
@@ -25,9 +25,9 @@ export default class Account extends Component {
   handleSubmit = event => {
     event.preventDefault();
     let accountUid = uuid()
-    db.collection("accounts")
+    db.collection('accounts')
       .doc(`${this.props.user.uid}`)
-      .collection("userAccounts")
+      .collection('userAccounts')
       .doc(`${accountUid}`)
       .set({
         userUid: this.props.user.uid,
@@ -46,22 +46,22 @@ export default class Account extends Component {
         // })
         // this.setState({ userAccounts: modifiedUserAccounts })
         // console.log(this.state.userAccounts)
-        console.log("Document successfully written!");
+        console.log('Document successfully written!');
       })
       .catch(function (error) {
-        console.error("Error writing document: ", error);
+        console.error('Error writing document: ', error);
       });
   };
   handleRemove = (accountUid, event) => {
     // event.preventDefault()
-    db.collection("accounts").doc(this.props.user.uid).collection("userAccounts")
+    db.collection('accounts').doc(this.props.user.uid).collection('userAccounts')
       .doc(accountUid)
       .delete()
       .then(function () {
-        console.log("Document successfully deleted");
+        console.log('Document successfully deleted');
       })
       .catch(function (error) {
-        console.error("Error removing document: ", error);
+        console.error('Error removing document: ', error);
       })
   }
   handleRedirect = (charityName, event) => {
@@ -70,7 +70,7 @@ export default class Account extends Component {
 
   getAccounts() {
     var userAccounts = [];
-    db.collection("accounts").doc(this.props.user.uid).collection("userAccounts")
+    db.collection('accounts').doc(this.props.user.uid).collection('userAccounts')
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -83,13 +83,13 @@ export default class Account extends Component {
         this.setState({ userAccounts: userAccounts })
       )
       .catch(err => {
-        console.log("Error getting documents", err);
+        console.log('Error getting documents', err);
       });
   }
 
   getDonations() {
     var userDonations = {}
-    db.collection("donationsFromUsers").doc(this.props.user.uid)
+    db.collection('donationsFromUsers').doc(this.props.user.uid)
       .get()
       .then(snapshot => {
         if (snapshot.exists) {
@@ -127,7 +127,7 @@ export default class Account extends Component {
         <br />
         <h3>Your Past Donations</h3>
         <br />
-        <ul style={{ listStyleType: "none", padding: "0" }}>
+        <ul style={{ listStyleType: 'none', padding: '0' }}>
           {/* {console.log('userDonations', userDonations)} */}
           {Object.keys(userDonations).length > 0
             ? Object.keys(userDonations).map(key => (
@@ -154,7 +154,7 @@ export default class Account extends Component {
         </ul>
         <h3>Your Saved Accounts</h3>
         <br />
-        <ul style={{ listStyleType: "none", padding: "0" }}>
+        <ul style={{ listStyleType: 'none', padding: '0' }}>
           {userAccounts
             ? userAccounts.map(elem => (
               <div key={elem.bankAccountName}>
@@ -199,15 +199,15 @@ export default class Account extends Component {
             onChange={this.handleChange}
           >
             <MenuItem
-              value={"American Express"}
+              value={'American Express'}
               primaryText="American Express"
             />
-            <MenuItem value={"Bank of America"} primaryText="Bank of America" />
-            <MenuItem value={"Capital One"} primaryText="Capital One" />
-            <MenuItem value={"Chase"} primaryText="Chase" />
-            <MenuItem value={"Citi"} primaryText="Citi" />
-            <MenuItem value={"Discover"} primaryText="Discover" />
-            <MenuItem value={"Wells Fargo"} primaryText="Wells Fargo" />
+            <MenuItem value={'Bank of America'} primaryText="Bank of America" />
+            <MenuItem value={'Capital One'} primaryText="Capital One" />
+            <MenuItem value={'Chase'} primaryText="Chase" />
+            <MenuItem value={'Citi'} primaryText="Citi" />
+            <MenuItem value={'Discover'} primaryText="Discover" />
+            <MenuItem value={'Wells Fargo'} primaryText="Wells Fargo" />
           </SelectField>
           <br />
           <TextField

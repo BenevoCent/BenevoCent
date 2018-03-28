@@ -88,7 +88,8 @@ const raisedBtn = {
 };
 
 const container = {
-  textAlign: 'center'
+  textAlign: 'center',
+  marginTop: '1rem'
 };
 
 const style = {
