@@ -17,7 +17,10 @@ export default class Account extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange = (event, index, bank) => this.setState({ bank });
+  handleChange = (event, index, bank) => {
+    console.log('bank', bank);
+    this.setState({ bank });
+  };
   handleSubmit = event => {
     event.preventDefault();
     db

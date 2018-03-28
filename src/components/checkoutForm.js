@@ -9,11 +9,7 @@ import {Elements} from 'react-stripe-elements';
 import {Stripe, injectStripe, stripeTokenHandler} from 'react-stripe-elements';
 import CardSection from './cardSection'
 
-let formStyle = {
-    height: "500px",
-    width: "450px",
-    border: "1px black solid"
-}
+
 
 let style = {
     base: {
@@ -42,9 +38,8 @@ export class CheckoutForm extends Component {
       console.log('in renderer', this.charities);
 
     return (
-        <div style={formStyle}>
+        <div style={{width: "100vw"}}>
             <h3>Direct Donation</h3>
-            <p>Here you can make a direct donation to any charity of your choosing</p>            
             <CardSection user={this.props.user} />
         </div>
     );

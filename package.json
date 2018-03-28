@@ -9,6 +9,7 @@
     "gh-pages": "^1.1.0",
     "material-ui": "^0.19.4",
     "material-ui-icons": "^1.0.0-beta.36",
+    "material-ui-number-input": "^5.0.24",
     "material-ui-search-bar": "^0.4.1",
     "nuka-carousel": "^4.0.0",
     "react": "^16.1.1",
