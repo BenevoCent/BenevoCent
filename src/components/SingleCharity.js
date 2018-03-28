@@ -18,7 +18,7 @@ export default class SingleCharity extends Component {
     super(props);
     this.state = {
       charity: {},
-      doners: [],
+      donors: [],
       plots: [],
       names: [],
       amount: [],
@@ -39,15 +39,15 @@ export default class SingleCharity extends Component {
       })
       .then(charity => {
         this.setState({ charity });
-        this.getTopDoners();
+        this.getTopDonors();
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
   }
 
-  getTopDoners() {
-    let doners = [];
+  getTopDonors() {
+    let donors = [];
     let amount = [];
     let allUserDonations = db.collection('donationsToCharities')
       .doc(this.state.charity.uid)
@@ -58,26 +58,26 @@ export default class SingleCharity extends Component {
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
-          doners.push(doc.data());
+          donors.push(doc.data());
           amount.push(doc.data().totalDonations);
         });
-        return doners;
+        return donors;
       })
-      .then(doners => {
-        this.setState({ doners, amount });
-        this.getTopDonerInfo();
+      .then(donors => {
+        this.setState({ donors, amount });
+        this.getTopDonorInfo();
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
   }
 
-  getTopDonerInfo(){
+  getTopDonorInfo(){
     let plots = [null, null, null, null, null, null, null, null, null];
     let names = [];
-    this.state.doners.map((doner, idx) => {
+    this.state.donors.map((donor, idx) => {
       db.collection('users')
-        .doc(doner.uid)
+        .doc(donor.uid)
         .get()
         .then(user => {
           console.log('idx', idx);
@@ -98,7 +98,7 @@ export default class SingleCharity extends Component {
   render() {
     console.log('charity: ', this.state.charity);
     console.log('route: ', this.props.match.params.charityName);
-    console.log('doners: ', this.state.doners);
+    console.log('donors: ', this.state.donors);
     console.log('plots: ', this.state.plots);
     console.log('names: ', this.state.names);
     if (Object.keys(this.state.charity).length === 0) {

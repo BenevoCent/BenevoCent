@@ -15,6 +15,7 @@ export default class Register extends Component {
     super(props);
     this.state = {
       registerError: null,
+      displayName: '',
       email: '',
       password: ''
     };
@@ -29,6 +30,12 @@ export default class Register extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit} style={style.container}>
+        <TextField
+          hintText="Enter your Full Name"
+          floatingLabelText="Full Name"
+          onChange={(event, newValue) => this.setState({ displayName: newValue })}
+        />
+        <br />
         <TextField
           hintText="Enter your Email"
           floatingLabelText="Email"
