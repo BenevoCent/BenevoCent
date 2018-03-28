@@ -24,6 +24,7 @@ import Charities from "./Charities";
 
 // Test
 import Test from "./GardenGridV2";
+import SingleCharity from "./SingleCharity";
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
   return ( <Route {...rest} // these are props passed to Route
@@ -160,8 +161,14 @@ export default class App extends Component {
                   />
                   <PrivateRoute
                     authed={this.state.authed}
-                    path="/orgs"
+                    exact path="/orgs"
                     component={Charities}
+                    user={this.state.user}
+                  />
+                  <PrivateRoute
+                    authed={this.state.authed}
+                    exact path="/orgs/:charityName"
+                    component={SingleCharity}
                     user={this.state.user}
                   />
                   <PrivateRoute

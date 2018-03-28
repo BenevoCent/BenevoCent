@@ -181,7 +181,7 @@ export default class GardenGridV2 extends Component {
 
     return (
       <div id="carousel-summary">
-        <h3>${this.props.monthlyDonation}</h3>
+        <h3>Total Donations: ${this.props.monthlyDonation}</h3>
         <div className="container" style={containerStyle}>
           <div className="cell" style={zerostyle} onMouseEnter={this.truezero} onMouseLeave={this.falsezero}>
             {gardenPlots[0] ? <img src={gardenPlots[0]} alt="cell" /> : null}
@@ -208,7 +208,7 @@ export default class GardenGridV2 extends Component {
             {gardenPlots[7] ? <img src={gardenPlots[7]} alt="cell" /> : null}
           </div>
           <div className="cell" style={eightstyle} onMouseEnter={this.trueeight} onMouseLeave={this.falseeight}>
-            {gardenPlots[0] ? <img src={gardenPlots[8]} alt="cell" /> : null}
+            {gardenPlots[8] ? <img src={gardenPlots[8]} alt="cell" /> : null}
           </div>
         </div>
       </div>

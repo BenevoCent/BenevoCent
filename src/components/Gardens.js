@@ -155,13 +155,11 @@ export default class Gardens extends Component {
       .then(snapshot => {
         snapshot.forEach(doc => {
           gardens.push(doc.data());
-          // console.log(doc.id, "=>", doc.data());
         });
         return gardens;
       })
       .then(gardens => {
         this.setState({ gardens: gardens });
-        // console.log("gardens", gardens);
       })
       .catch(err => {
         console.log('Error getting documents', err);
@@ -181,7 +179,6 @@ export default class Gardens extends Component {
             month: doc.id,
             monthlyDonation: doc.data().totalDonations
           });
-          // console.log(doc.id, "=>", doc.data());
         });
         return monthlyDonations;
       })
@@ -224,8 +221,8 @@ export default class Gardens extends Component {
   };
   getPlots = (month, uid) => {
     let plots = [];
-    // console.log('uid', uid, 'month', month)
-    db.collection('gardens')
+    db
+      .collection('gardens')
       .doc(uid)
       .collection('user_gardens')
       .doc(month)
