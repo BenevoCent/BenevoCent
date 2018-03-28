@@ -25,6 +25,10 @@ const containerStyle = {
   // }
 };
 
+const imageStyle = {
+  transform: 'rotateZ(-45deg)'
+}
+
 export default class GardenGridV2 extends Component {
   state = {
     // hover: false,
@@ -118,6 +122,17 @@ export default class GardenGridV2 extends Component {
       gardenPlots.push(topLayer);
     }
 
+    // let gardenPlots = [];
+    // for (let i = 0; i < this.props.plots.length; i++) {
+    //   let topLayer = null;
+    //   if (this.props.plots[i] !== null && i % 2 === 0) {topLayer = 'https://drive.google.com/uc?export=download&id=1WaM4QBv5wkw5LEUksDuQVlU53J99-F3d';}
+    //   else if (this.props.plots[i] !== null && i % 2 === 1) {topLayer = 'https://drive.google.com/uc?export=download&id=1BzeU34dsK6eZSFehUrH088zCtg5RVVQt';}
+
+
+    //   //if (this.props.plots[i] !== null) {topLayer = `/svg/${this.props.plots[i]}.svg`;}
+    //   gardenPlots.push(topLayer);
+    // }
+
     // let cellStyle = {};
     // if (!this.state.hover){
     //   cellStyle = {
@@ -184,25 +199,25 @@ export default class GardenGridV2 extends Component {
         <h3>Total Donations: ${this.props.monthlyDonation}</h3>
         <div className="container" style={containerStyle}>
           <div className="cell" style={zerostyle} onMouseEnter={this.truezero} onMouseLeave={this.falsezero}>
-            {gardenPlots[0] ? <img src={gardenPlots[0]} alt="cell" /> : null}
+            {gardenPlots[0] ? <img src={gardenPlots[0]} style={imageStyle} alt="cell" /> : null}
           </div>
           <div className="cell" style={onestyle} onMouseEnter={this.trueone} onMouseLeave={this.falseone}>
             {gardenPlots[1] ? <img src={gardenPlots[1]} alt="cell" /> : null}
           </div>
           <div className="cell" style={twostyle} onMouseEnter={this.truetwo} onMouseLeave={this.falsetwo}>
-            {gardenPlots[2] ? <img src={gardenPlots[2]} alt="cell" /> : null}
+            {gardenPlots[2] ? <img src={gardenPlots[2]} style={imageStyle} alt="cell" /> : null}
           </div>
           <div className="cell" style={threestyle} onMouseEnter={this.truethree} onMouseLeave={this.falsethree}>
             {gardenPlots[3] ? <img src={gardenPlots[3]} alt="cell" /> : null}
           </div>
           <div className="cell" style={fourstyle} onMouseEnter={this.truefour} onMouseLeave={this.falsefour}>
-            {gardenPlots[4] ? <img src={gardenPlots[4]} alt="cell" /> : null}
+            {gardenPlots[4] ? <img src={gardenPlots[4]} style={imageStyle} alt="cell" /> : null}
           </div>
           <div className="cell" style={fivestyle} onMouseEnter={this.truefive} onMouseLeave={this.falsefive}>
             {gardenPlots[5] ? <img src={gardenPlots[5]} alt="cell" /> : null}
           </div>
           <div className="cell" style={sixstyle} onMouseEnter={this.truesix} onMouseLeave={this.falsesix}>
-            {gardenPlots[6] ? <img src={gardenPlots[6]} alt="cell" /> : null}
+            {gardenPlots[6] ? <img src={gardenPlots[6]} style={imageStyle} alt="cell" /> : null}
           </div>
           <div className="cell" style={sevenstyle} onMouseEnter={this.trueseven} onMouseLeave={this.falseseven}>
             {gardenPlots[7] ? <img src={gardenPlots[7]} alt="cell" /> : null}
