@@ -84,7 +84,7 @@ const tilesData = [
     title: 'radish-1'
   },
   {
-    img: 'https://drive.google.com/uc?export=download&id=1-ZGJdll313uAd49Zu4k7R0JO3RBtP7Md',
+    img: '/svg/aubergine.svg',
     title: 'aubergine'
   },
   {
@@ -135,11 +135,6 @@ export default class Gardens extends Component {
     };
   }
   getSelectedSeedling() {
-    if (this.props.user.uid) {
-      console.log('yay', this.props.user.uid);
-    } else {
-      console.log('nay');
-    }
     db.collection('users')
       .doc(this.props.user.uid)
       .get()

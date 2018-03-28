@@ -1,13 +1,10 @@
 // Node Modules
-<<<<<<< HEAD
-import React, { Component } from "react";
-import { Route, HashRouter, Link, Redirect, Switch } from "react-router-dom";
-import {StripeProvider} from 'react-stripe-elements';
 
-=======
+
 import React, { Component } from 'react';
 import { Route, HashRouter, Link, Redirect, Switch } from 'react-router-dom';
->>>>>>> master
+import {StripeProvider} from 'react-stripe-elements';
+
 
 // Material UI
 import AppBar from 'material-ui/AppBar';
@@ -30,13 +27,9 @@ import Seedlings from './Seedlings';
 import Charities from './Charities';
 
 // Test
-<<<<<<< HEAD
-import Test from "./GardenGridV2";
-import LumpPayment from "./lumpPayment";
-=======
 import Test from './GardenGridV2';
+import LumpPayment from './lumpPayment';
 import SingleCharity from './SingleCharity';
->>>>>>> master
 
 function PrivateRoute({ component: Component, authed, user, ...rest}) {
   return ( <Route

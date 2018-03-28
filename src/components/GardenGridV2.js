@@ -118,13 +118,20 @@ export default class GardenGridV2 extends Component {
     let gardenPlots = [];
     for (let i = 0; i < this.props.plots.length; i++) {
       let topLayer = null;
-      if (this.props.plots[i] !== null && i % 2 === 0) {topLayer = 'https://drive.google.com/uc?export=download&id=1WaM4QBv5wkw5LEUksDuQVlU53J99-F3d';}
-      else if (this.props.plots[i] !== null && i % 2 === 1) {topLayer = 'https://drive.google.com/uc?export=download&id=1BzeU34dsK6eZSFehUrH088zCtg5RVVQt';}
-
-
-      //if (this.props.plots[i] !== null) {topLayer = `/svg/${this.props.plots[i]}.svg`;}
+      if (this.props.plots[i] !== null) {topLayer = `/svg/${this.props.plots[i]}.svg`;}
       gardenPlots.push(topLayer);
     }
+
+    // let gardenPlots = [];
+    // for (let i = 0; i < this.props.plots.length; i++) {
+    //   let topLayer = null;
+    //   if (this.props.plots[i] !== null && i % 2 === 0) {topLayer = 'https://drive.google.com/uc?export=download&id=1WaM4QBv5wkw5LEUksDuQVlU53J99-F3d';}
+    //   else if (this.props.plots[i] !== null && i % 2 === 1) {topLayer = 'https://drive.google.com/uc?export=download&id=1BzeU34dsK6eZSFehUrH088zCtg5RVVQt';}
+
+
+    //   //if (this.props.plots[i] !== null) {topLayer = `/svg/${this.props.plots[i]}.svg`;}
+    //   gardenPlots.push(topLayer);
+    // }
 
     // let cellStyle = {};
     // if (!this.state.hover){
@@ -216,11 +223,7 @@ export default class GardenGridV2 extends Component {
             {gardenPlots[7] ? <img src={gardenPlots[7]} alt="cell" /> : null}
           </div>
           <div className="cell" style={eightstyle} onMouseEnter={this.trueeight} onMouseLeave={this.falseeight}>
-<<<<<<< HEAD
-            {gardenPlots[0] ? <img src={gardenPlots[8]} style={imageStyle} alt="cell" /> : null}
-=======
             {gardenPlots[8] ? <img src={gardenPlots[8]} alt="cell" /> : null}
->>>>>>> master
           </div>
         </div>
       </div>

@@ -16,10 +16,10 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     marginTop: '1rem'
-  }
+  },
   container: {
     padding: '1em'
-  }
+  },
   inputField: {
     fontSize: "18px",
     lineHeight: "24px", 
