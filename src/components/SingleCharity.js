@@ -105,7 +105,8 @@ export default class SingleCharity extends Component {
     } else {
         return (
           <div>
-            <h1>{this.props.match.params.charityName.replace(/_/g,' ')} Community Garden</h1>
+            <br />
+            <h2 style={{textAlign: "center"}}>{this.props.match.params.charityName.replace(/_/g,' ')}</h2>
             <GardenGridV2
               monthlyDonation={this.state.charity.totalDonations}
               plots={this.state.plots}
