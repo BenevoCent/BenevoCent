@@ -107,6 +107,7 @@ export default class SingleCharity extends Component {
           <div>
             <br />
             <h2 style={{textAlign: "center"}}>{this.props.match.params.charityName.replace(/_/g,' ')}</h2>
+            <h6 style={{textAlign: "center"}}>{`${this.state.charity.tag}`}</h6>
             <GardenGridV2
               monthlyDonation={this.state.charity.totalDonations}
               plots={this.state.plots}
@@ -170,9 +171,8 @@ export default class SingleCharity extends Component {
               </TableBody>
             </Table>
             <br />
-            <h5>URL: <a href={this.state.charity.url} target="_blank">{`${this.state.charity.url}`}</a></h5>
-            <h5>Tag: {`${this.state.charity.tag}`}</h5>
-            <p>Mission: {`${this.state.charity.mission}`}</p>
+            <p style={{paddingLeft: "3vw", paddingRight: "3vw"}}>{`${this.state.charity.mission}`}</p>
+            <p style={{paddingLeft: "3vw", paddingRight: "3vw"}}>Learn more at: <a href={this.state.charity.url} target="_blank">{`${this.state.charity.url}`}</a></p>
           </div>
         );
     }
