@@ -196,7 +196,7 @@ export default class GardenGridV2 extends Component {
 
     return (
       <div id="carousel-summary">
-        <h3>Total Donations: ${this.props.monthlyDonation}</h3>
+        <h4>Total Donations: ${this.props.monthlyDonation}</h4>
         <div className="container" style={containerStyle}>
           <div className="cell" style={zerostyle} onMouseEnter={this.truezero} onMouseLeave={this.falsezero}>
             {gardenPlots[0] ? <img src={gardenPlots[0]} alt="cell" /> : null}

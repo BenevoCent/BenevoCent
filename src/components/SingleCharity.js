@@ -111,7 +111,8 @@ export default class SingleCharity extends Component {
               monthlyDonation={this.state.charity.totalDonations}
               plots={this.state.plots}
             />
-            <h2>Leaderboard</h2>
+            <br />
+            <h4 style={{textAlign: "center", fontWeight: "bold" }}>Leaderboard</h4>
             <Table>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow>
@@ -168,8 +169,9 @@ export default class SingleCharity extends Component {
                 </TableRow>
               </TableBody>
             </Table>
-            <h3>URL: <a href={this.state.charity.url} target="_blank">{`${this.state.charity.url}`}</a></h3>
-            <h3>Tag: {`${this.state.charity.tag}`}</h3>
+            <br />
+            <h5>URL: <a href={this.state.charity.url} target="_blank">{`${this.state.charity.url}`}</a></h5>
+            <h5>Tag: {`${this.state.charity.tag}`}</h5>
             <p>Mission: {`${this.state.charity.mission}`}</p>
           </div>
         );
