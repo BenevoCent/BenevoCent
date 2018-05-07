@@ -80,12 +80,12 @@ const tilesData = [
     title: 'carrot'
   },
   {
-    img: '/svg/radish-1.svg',
-    title: 'radish-1'
+    img: '/svg/radish.svg',
+    title: 'radish'
   },
   {
-    img: '/svg/aubergine.svg',
-    title: 'aubergine'
+    img: '/svg/eggplant.svg',
+    title: 'eggplant'
   },
   {
     img: '/svg/broccoli.svg',
