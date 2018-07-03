@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
 import SearchBar from 'material-ui-search-bar';
-import { GridList, GridTile } from 'material-ui/GridList';
+import { GridList, GridTile } from './OrgGridList';
 import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui-icons/CheckBox';
 import CheckBoxOutlineBlank from 'material-ui-icons/CheckBoxOutlineBlank';
@@ -31,6 +31,14 @@ const styles = {
   },
   titleStyle: {
     color: 'rgb(255, 255, 255)'
+  },
+  tileSansBar: {
+    display: 'flex',
+    paddingBottom: '6vh',
+    justifyContent: 'center'
+  },
+  tileLink: {
+    margin: 'auto'
   }
 };
 
@@ -146,17 +154,15 @@ export default class Charities extends Component {
     );
     return (
 
-    
-
       <div style={{ width: '100vw' }}>
         <Dialog
           title="Settings Saved"
           actions={
-            [<RaisedButton 
+            [<RaisedButton
               label="Close"
               primary={true}
               onClick={this.dialogClose}
-            />] 
+            />]
           }
           modal={false}
           open={this.state.saveDialog}
@@ -258,13 +264,20 @@ export default class Charities extends Component {
                       titleStyle={styles.titleStyle}
                       titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
                     >
+                      <div style={styles.tileSansBar}>
+                        <div>
                       <img
-                        style={{ paddingLeft: '15px' }}
+                        style={{ paddingLeft: '15px', maxHeight: '8vh' }}
                         src={charity.img}
                         alt="charity"
                       />
-                      <br />
-                      <Link to={`/orgs/${charity.name.trim().replace(/ /g, '_')}`}>{charity.name}</Link>
+                        </div>
+                        <div style={styles.tileLink}>
+                          <Link
+                            to={`/orgs/${charity.name.trim().replace(/ /g, '_')}`}>{charity.name}</Link>
+                        </div>
+                      </div>
+
                     </GridTile>
                   );
                 })}
