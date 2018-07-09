@@ -1,36 +1,22 @@
-# BenevoCent - Charitable donation app
-
-![alt text](./readme_images/bc_WebLogin.png)
-
-Web Login
-
- User’s credit card transactions are rounded up to the nearest dollar and the remainder is donated to a charity of their choice. There is a visual feedback component where the user’s total charitable donations correlate to the size of a virtual “garden”. Multiple users can group up together to contribute to a shared community garden. Gardens can represent specific community interests such as: environmental protection, humanitarian causes, medical research, etc.
-
-![alt text](./readme_images/bc_UserGarden.png)
-
-User Garden
-
-![alt text](./readme_images/bc_Account.png)
-
-Account
-
-![alt text](./readme_images/bc_Organizations.png)
-
-Organizations
-
-![alt text](./readme_images/bc_Split.png)
-
-Split
-
-![alt text](./readme_images/bc_OrgGarden.png)
-
-Org Garden
 
 
+BenevoCent is a mobile-first progressive web app that simplifies and gamifies charitable giving. Based off of Acorns, it rounds up your linked credit cards' transactions to the nearest dollar and automatically donates the difference to charities of your choice.
 
-Login with the following credentials:
+Check it out at https://www.benevocent.com or by downloading it locally and running npm install and npm start
+
+To see the site from the perspective of a user with existing donations, use the following credentials:
 
 email: user_good@gmail.com
 password: 123123
 
-to try the app out at https://www.benevocent.com
+![alt text](./readme_images/bc_WebLogin.png)
+
+![alt text](./readme_images/bc_UserGarden.png)
+
+![alt text](./readme_images/bc_Account.png)
+
+![alt text](./readme_images/bc_Organizations.png)
+
+![alt text](./readme_images/bc_Split.png)
+
+![alt text](./readme_images/bc_OrgGarden.png)
